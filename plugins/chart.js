@@ -37,7 +37,6 @@ Vue.component('line-chart', {
           enabled: true,
           callbacks: {
             label: ((tooltipItems, data) => {
-              console.log(this)
               return `Rp. ${this.formatPrice(tooltipItems.yLabel)}`
             })
           }

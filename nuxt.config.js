@@ -23,11 +23,12 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
-    link: [{
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: '/images/logo.png'
-    },
+    link: [
+    //   {
+    //   rel: 'icon',
+    //   type: 'image/x-icon',
+    //   href: '/images/logo.png'
+    // },
     {
       rel: 'stylesheet',
       href: 'https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap'
@@ -66,7 +67,7 @@ export default {
     strategies: {
       operator: {
         provider: 'laravel/sanctum',
-        url: 'http://localhost:3008',
+        url: 'https://api.ppdb.smktibazma.sch.id',
         endpoints: {
           login: {
             url: '/api/v1/auth/login',
@@ -101,12 +102,14 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
+    'vue-sweetalert2/nuxt',
+    'cookie-universal-nuxt',
 
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://localhost:3008',
+    baseURL: 'https://api.ppdb.smktibazma.sch.id',
     credentials: true,
   },
 

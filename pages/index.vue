@@ -21,8 +21,13 @@
                   <i class="fa fa-envelope"></i>
                 </span>
               </div>
-              <input class="form-control" v-model="user.email" :class="{ 'is-invalid': validation.email }" type="email"
-                placeholder="Email Address">
+              <input
+                class="form-control"
+                v-model="user.email"
+                :class="{ 'is-invalid': validation.email }"
+                type="email"
+                placeholder="Email Address"
+              />
             </div>
             <div v-if="validation.email" class="mt-2">
               <b-alert show variant="danger">{{ validation.email[0] }}</b-alert>
@@ -33,15 +38,27 @@
                   <i class="fa fa-lock"></i>
                 </span>
               </div>
-              <input class="form-control" v-model="user.password" :class="{ 'is-invalid': validation.password }"
-                type="password" placeholder="Password">
+              <input
+                class="form-control"
+                v-model="user.password"
+                :class="{ 'is-invalid': validation.password }"
+                type="password"
+                placeholder="Password"
+              />
             </div>
             <div v-if="validation.password" class="mt-2">
-              <b-alert show variant="danger">{{ validation.password[0] }}</b-alert>
+              <b-alert show variant="danger">{{
+                validation.password[0]
+              }}</b-alert>
             </div>
             <div class="row">
               <div class="col-12">
-                <button class="btn btn-warning shadow-sm rounded-sm px-4 w-100" type="submit">LOGIN</button>
+                <button
+                  class="btn btn-warning shadow-sm rounded-sm px-4 w-100"
+                  type="submit"
+                >
+                  LOGIN
+                </button>
               </div>
             </div>
           </form>
@@ -53,58 +70,72 @@
 
 <script>
 export default {
-
-  mounted() {
-    this.$axios.$get('sanctum/csrf-cookie')
-  },
+  // mounted() {
+  //   this.$axios.$get("sanctum/csrf-cookie");
+  // },
 
   //middleware
-  middleware: 'authenticated',
+  middleware: "authenticated",
 
   //layout
-  layout: 'auth',
+  layout: "auth",
 
   //meta
   head() {
     return {
-      title: 'Login - Dasbor Bazma',
-    }
+      title: "Login - Dasbor Bazma",
+    };
   },
 
   data() {
     return {
       //state user
       user: {
-        email: '',
-        password: '',
+        email: "",
+        password: "",
       },
       //validation
-      validation: []
-    }
+      validation: [],
+    };
   },
+  // Halaman login Nuxt.js
 
   methods: {
     async login() {
       try {
-        // Melakukan login dengan otentikasi 'operator'
+        await this.$axios.$get('sanctum/csrf-cookie');
+
+        // Now you can access and set cookies using this.$cookies
+        const xsrfToken = this.$cookies.get('XSRF-TOKEN');
+
+        // Make your login request with the X-XSRF-TOKEN header
         const response = await this.$auth.loginWith('operator', {
           data: {
             email: this.user.email,
-            password: this.user.password
-          }
+            password: this.user.password,
+          },
+          headers: {
+            'X-XSRF-TOKEN': xsrfToken,
+          },
         });
+        // Melakukan login dengan otentikasi 'operator'
+        // const response = await this.$auth.loginWith("operator", {
+        //   data: {
+        //     email: this.user.email,
+        //     password: this.user.password,
+        //   },
+        // });
 
         // Redirect ke halaman tertentu setelah login berhasil
-        this.$router.push({ name: 'dashboard' });
+        this.$router.push({ name: "dashboard" });
       } catch (error) {
         // Menangani kesalahan, misalnya menampilkan pesan kesalahan
-        console.error('Login error:', error);
+        console.error("Login error:", error);
         this.validation = error;
       }
     },
-  }
-
-}
+  },
+};
 </script>
 
 <style></style>

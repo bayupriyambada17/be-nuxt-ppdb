@@ -23,7 +23,7 @@
         <!-- end content -->
 
         <footer class="c-footer">
-          <div><strong>DasBazma</strong> &copy; - bayupm.com</div>
+        <div><strong>DasBazma</strong> &copy; {{new Date().getFullYear() }} - bayupm.com</div>
           <div class="ml-auto">Template by&nbsp;<a href="https://coreui.io/">CoreUI</a></div>
         </footer>
       </div>
