@@ -75,6 +75,8 @@ export default {
   // },
 
   //middleware
+  //
+  //middleware
   middleware: "authenticated",
 
   //layout
@@ -83,7 +85,7 @@ export default {
   //meta
   head() {
     return {
-      title: "Login - Dasbor Bazma",
+      title: "Login - Administrator",
     };
   },
 
@@ -98,44 +100,28 @@ export default {
       validation: [],
     };
   },
-  // Halaman login Nuxt.js
+
   methods: {
     async login() {
-      try {
-        await this.$axios.$get("sanctum/csrf-cookie");
-
-        // // Now you can access and set cookies using this.$cookies
-        const xsrfToken = this.$cookies.get("XSRF-TOKEN");
-
-        // Make your login request with the X-XSRF-TOKEN header
-        const response = await this.$auth.loginWith("laravelSanctum", {
+      await this.$auth
+        .loginWith("ppdb", {
           data: {
             email: this.user.email,
             password: this.user.password,
           },
-          method:"POST",
-          headers: {
-            "X-XSRF-TOKEN": xsrfToken,
-            'authorization' : "bearer"
-          },
+        })
+
+        .then(() => {
+          //redirect
+          this.$router.push({
+            name: "dashboard",
+          });
+        })
+
+        .catch((error) => {
+          //assign validation
+          this.validation = error.response.data;
         });
-
-        console.log(response);
-        // Melakukan login dengan otentikasi 'operator'
-        // const response = await this.$auth.loginWith("operator", {
-        //   data: {
-        //     email: this.user.email,
-        //     password: this.user.password,
-        //   },
-        // });
-
-        // Redirect ke halaman tertentu setelah login berhasil
-        this.$router.push({ name: "dashboard" });
-      } catch (error) {
-        // Menangani kesalahan, misalnya menampilkan pesan kesalahan
-        console.error("Login error:", error);
-        this.validation = error;
-      }
     },
   },
 };

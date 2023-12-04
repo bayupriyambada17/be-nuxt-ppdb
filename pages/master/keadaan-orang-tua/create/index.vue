@@ -66,7 +66,7 @@ export default {
    computed: {
         //categories
         keadaanOrangTua() {
-            return this.$store.state.admin.keadaanOrangTua.keadaanOrangTua
+            return this.$store.state.operator.keadaanOrangTua.keadaanOrangTua
         },
     },
 
@@ -94,10 +94,7 @@ export default {
             timer: 2000
           })
 
-          //redirect route "admin-categories"
-          this.$router.push({
-            name: 'master-keadaan-orang-tua'
-          })
+          this.$router.go(-1);
 
         })
 

@@ -2,96 +2,18 @@
   <main class="c-main">
     <div class="container-fluid">
       <div class="fade-in">
-        <div class="row">
-          <div class="col-6 col-lg-3">
-            <div class="card border-0 rounded shadow-sm overflow-hidden">
-              <div class="card-body p-0 d-flex align-items-center">
-                <div class="bg-primary py-4 px-5 mfe-3">
-                  <i class="fas fa-circle-notch fa-spin fa-2x"></i>
-                </div>
-                <div>
-                  <!-- <div class="text-value text-primary">{{ statistic.pending }}</div>
-                  <div class="text-muted text-uppercase font-weight-bold small">PENDING</div> -->
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-6 col-lg-3">
-            <div class="card border-0 rounded shadow-sm overflow-hidden">
-              <div class="card-body p-0 d-flex align-items-center">
-                <div class="bg-success py-4 px-5 mfe-3">
-                  <i class="fas fa-check-circle fa-2x"></i>
-                </div>
-                <div>
-                  <!-- <div class="text-value text-success">{{ statistic.success }}</div>
-                  <div class="text-muted text-uppercase font-weight-bold small">SUCCESS</div> -->
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-6 col-lg-3">
-            <div class="card border-0 rounded shadow-sm overflow-hidden">
-              <div class="card-body p-0 d-flex align-items-center">
-                <div class="bg-warning py-4 px-5 mfe-3">
-                  <i class="fas fa-exclamation-triangle fa-2x"></i>
-                </div>
-                <div>
-                  <!-- <div class="text-value text-warning">{{ statistic.expired }}</div>
-                  <div class="text-muted text-uppercase font-weight-bold small">EXPIRED</div> -->
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-6 col-lg-3">
-            <div class="card border-0 rounded shadow-sm overflow-hidden">
-              <div class="card-body p-0 d-flex align-items-center">
-                <div class="bg-danger py-4 px-5 mfe-3">
-                  <i class="fas fa-times-circle fa-2x"></i>
-                </div>
-                <div>
-                  <!-- <div class="text-value text-danger">{{ statistic.failed }}</div>
-                  <div class="text-muted text-uppercase font-weight-bold small">FAILED</div> -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-8">
+        <div class="row" v-for="(chartData, index) in charts.data" :key="index">
+          <div class="col-md-6">
             <div class="card border-0 rounded shadow-sm border-top-orange">
               <div class="card-header">
-                <span class="font-weight-bold"
-                  ><i class="fa fa-chart-bar"></i> GRAFIK PENDAPATAN
-                  {{ new Date().getFullYear() }}</span
-                >
-              </div>
-              <div class="card-body">
-                <!-- <client-only>
-                  <line-chart :data="chart.chartData"></line-chart>
-                </client-only> -->
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card border-0 rounded shadow-sm border-top-orange">
-              <div class="card-header">
-                <span class="font-weight-bold"
-                  ><i class="fa fa-chart-bar"></i> Daftar Per-Hari ({{ peserta.jumlah }})
+                <span class="font-weight-bold">
+                  <i class="fa fa-chart-line"></i> GRAFIK PENDAPATAN {{ chartData.tahun_pelajaran }}
                 </span>
               </div>
               <div class="card-body">
-                <ul class="list-group list-group-flush" v-for="data in peserta.pendaftar">
-                  <li class="list-group-item">
-                    <span class="badge bg-secondary">{{ data.nomor_pendaftar }}</span>
-                    <!-- <cilBadge color="primary">{{ data.nomor_pendaftar }}</cilBadge> -->
-                    <br>
-                    <span> <b>{{ data.nama_lengkap }}</b> </span>
-                  </li>
-                </ul>
+                <client-only>
+                  <line-chart :data="prepareChartData(chartData.provinsi)"></line-chart>
+                </client-only>
               </div>
             </div>
           </div>
@@ -102,52 +24,45 @@
 </template>
 
 <script>
-// import { cilBadge } from '@coreui/icons';
-
 export default {
-    //layout
-    layout: "operator",
-    //meta
-    head() {
-        return {
-            title: "Dashboard - Administrator",
-        };
+  layout: "operator",
+  head() {
+    return {
+      title: "Dashboard - Dasbor Bazma",
+    };
+  },
+  async asyncData({ $axios }) {
+    const charts = await $axios.$get("/api/v1/dashboard/per-provinsi");
+    console.log(charts);
+
+    return { charts };
+  },
+  methods: {
+    prepareChartData(provinsiData) {
+      const labels = Object.keys(provinsiData);
+      const data = Object.values(provinsiData);
+
+      return {
+        labels: labels,
+        datasets: [
+          {
+            label: "Jumlah Peserta",
+            borderColor: "rgba(75,192,192,1)",
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: data,
+          },
+        ],
+      };
     },
-    async asyncData({ $axios }) {
-        //fetching dashboard
-        const pesertaHarian = await $axios.$get("/api/v1/dashboard/peserta-harian");
-        const peserta = {
-            'jumlah': pesertaHarian.data.total_jumlah,
-            'pendaftar': pesertaHarian.data.perhari
-        };
-
-        // const chartProvinsi = {}
-
-
-        //statistic
-        // const statistic = {
-        //   'pending': dashboard.data.count.pending,
-        //   'success': dashboard.data.count.success,
-        //   'expired': dashboard.data.count.expired,
-        //   'failed': dashboard.data.count.failed,
-        // }
-        // //cart
-        // const chart = {
-        //   chartData: {
-        //     labels: dashboard.data.chart.month_name,
-        //     datasets: [
-        //       {
-        //         label: `STATISTIK PENDAPATAN : ${new Date().getFullYear()}`,
-        //         backgroundColor: '#bccad8',
-        //         data: dashboard.data.chart.grand_total
-        //       },
-        //     ]
-        //   }
-        // }
-        return {
-            peserta,
-        };
-    },
+  },
 };
 </script>
 

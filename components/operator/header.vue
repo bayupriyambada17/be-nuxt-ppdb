@@ -62,16 +62,12 @@ export default {
     }
   },
 
-  //method
   methods: {
 
-    //method "logout"
     async logout() {
 
-      //logout auth
       await this.$auth.logout()
 
-      //redirect route admin login
       this.$router.push({
         name: 'index'
       })

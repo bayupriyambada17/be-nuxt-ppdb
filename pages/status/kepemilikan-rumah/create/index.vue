@@ -63,14 +63,14 @@ export default {
       },
       //state validation
       validation: [],
-      dataTitle: "Status Dalam Keluarga",
+      dataTitle: "Status Kepemilikan Rumah",
     };
   },
 
   computed: {
     //categories
-    statusDalamKeluarga() {
-      return this.$store.state.admin.statusDalamKeluarga.statusDalamKeluarga;
+    statusKepemilikanRuamh() {
+      return this.$store.state.operator.statusKepemilikanRuamh.statusKepemilikanRuamh;
     },
   },
 
@@ -84,7 +84,7 @@ export default {
 
       //sending data to action "storeCategory" vuex
       await this.$store
-        .dispatch("operator/statusDalamKeluarga/storeDataState", formData)
+        .dispatch("operator/statusKepemilikanRuamh/storeDataState", formData)
 
         //success
         .then(() => {

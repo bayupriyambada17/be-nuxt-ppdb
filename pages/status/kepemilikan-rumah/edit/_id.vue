@@ -51,21 +51,19 @@ export default {
   //meta
   head() {
     return {
-      // title: "Edit - Administrator",
       title: `Edit ${this.data.status} - Dasbor Bazma`,
     };
   },
 
   data() {
     return {
-      //state category
       data: {
         status: "",
       },
       //state validation
       validation: [],
       titleForm: {
-        title: "Status Dalam Keluarga",
+        title: "Status Kepemilikan Rumah",
       },
     };
   },
@@ -73,7 +71,7 @@ export default {
   //hook "asyncData"
   async asyncData({ store, route }) {
     await store.dispatch(
-      "operator/statusDalamKeluarga/getDetailIdstate",
+      "operator/statusKepemilikanRumah/getDetailIdstate",
       route.params.id
     );
   },
@@ -81,7 +79,7 @@ export default {
   //mounted
   mounted() {
     this.data.status =
-      this.$store.state.operator.statusDalamKeluarga.statusDalamKeluarga.status;
+      this.$store.state.operator.statusKepemilikanRumah.statusKepemilikanRumah.status;
   },
 
   //method
@@ -94,7 +92,7 @@ export default {
       formData.append("status", this.data.status);
 
       await this.$store
-        .dispatch("operator/statusDalamKeluarga/updateDataState", {
+        .dispatch("operator/statusKepemilikanRumah/updateDataState", {
           dataId: this.$route.params.id,
           payload: formData,
         })
@@ -110,7 +108,6 @@ export default {
             timer: 2000,
           });
 
-          //redirect route "admin-categories"
           this.$router.go(-1);
         })
 

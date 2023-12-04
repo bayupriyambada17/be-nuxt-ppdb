@@ -46,7 +46,7 @@
                   <template v-slot:cell(actions)="row">
                     <b-button
                       :to="{
-                        name: 'status-status-dalam-keluarga-edit-id',
+                        name: 'status-harta-tidak-bergerak-edit-id',
                         params: { id: row.item.id },
                       }"
                       variant="warning"
@@ -96,7 +96,6 @@ export default {
         {
           label: this.dataTitle,
           key: "status",
-          tdClass: "text-center",
         },
         {
           label: "Total Peserta",
@@ -116,12 +115,12 @@ export default {
 
   //hook "asyncData"
   async asyncData({ store }) {
-    await store.dispatch("operator/statusDalamKeluarga/getAllDataState");
+    await store.dispatch("operator/statusHartaTidakBergerak/getAllDataState");
   },
 
   watch: {
     search(newSearchValue) {
-      this.$store.commit("operator/statusDalamKeluarga/SET_PAGE", 1);
+      this.$store.commit("operator/statusHartaTidakBergerak/SET_PAGE", 1);
       this.$store.dispatch(
         "operator/statusDalamKeluarga/getAllDataState",
         newSearchValue

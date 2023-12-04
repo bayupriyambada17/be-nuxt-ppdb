@@ -7,22 +7,22 @@
             <div class="card border-0 rounded shadow-sm border-top-orange">
               <div class="card-header">
                 <span class="font-weight-bold"
-                  ><i class="fa fa-folder"></i> EDIT CATEGORY</span
+                  ><i class="fa fa-folder"></i> Edit Tahun Lulus</span
                 >
               </div>
               <div class="card-body">
                 <form @submit.prevent="updateData">
                   <div class="form-group">
-                    <label>NAMA CATEGORY</label>
+                    <label>Tahun</label>
                     <input
                       type="text"
-                      v-model="data.tahun_pelajaran"
-                      placeholder="Masukkan Nama Category"
+                      v-model="data.tahun"
+                      placeholder="Masukkan Tahun"
                       class="form-control"
                     />
-                    <div v-if="validation.tahun_pelajaran" class="mt-2">
+                    <div v-if="validation.tahun" class="mt-2">
                       <b-alert show variant="danger">{{
-                        validation.tahun_pelajaran[0]
+                        validation.tahun[0]
                       }}</b-alert>
                     </div>
                   </div>
@@ -66,7 +66,7 @@ export default {
   //meta
   head() {
     return {
-      title: "Edit Category - Administrator",
+      title: "Edit Tahun Lulus - Dasbor Bazma",
     };
   },
 
@@ -74,7 +74,7 @@ export default {
     return {
       //state category
       data: {
-        tahun_pelajaran: "",
+        tahun: "",
         is_active: "Ya",
       },
       //state validation
@@ -85,15 +85,15 @@ export default {
   //hook "asyncData"
   async asyncData({ store, route }) {
     await store.dispatch(
-      "operator/tahunPelajaran/getDetailIdTahunPelajaran",
+      "operator/tahunLulus/getDetailIdstate",
       route.params.id
     );
   },
 
   //mounted
   mounted() {
-    this.data.tahun_pelajaran =this.$store.state.operator.tahunPelajaran.tahunPelajaran.tahun_pelajaran;
-    this.data.is_active =this.$store.state.operator.tahunPelajaran.tahunPelajaran.is_active;
+    this.data.tahun =this.$store.state.operator.tahunLulus.tahunLulus.tahun;
+    this.data.is_active =this.$store.state.operator.tahunLulus.tahunLulus.is_active;
   },
 
   //method
@@ -105,14 +105,14 @@ export default {
       let formData = new FormData();
 
 
-      formData.append("tahun_pelajaran", this.data.tahun_pelajaran);
+      formData.append("tahun", this.data.tahun);
       formData.append("is_active", is_active_value);
       // formData.append("_method", "PATCH");
 
       //sending data to action "updateCategory" vuex
       await this.$store
-        .dispatch("operator/tahunPelajaran/updateTahunPelajaran", {
-          tahunPelajaranId: this.$route.params.id,
+        .dispatch("operator/tahunLulus/updateDataState", {
+          dataId: this.$route.params.id,
           payload: formData,
         })
 
@@ -127,10 +127,7 @@ export default {
             timer: 2000,
           });
 
-          //redirect route "admin-categories"
-          this.$router.push({
-            name: "tahun-pelajaran",
-          });
+          this.$router.go(-1);
         })
 
         //error

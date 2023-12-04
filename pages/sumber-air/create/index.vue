@@ -70,7 +70,7 @@ export default {
   computed: {
     //categories
     golonganDarah() {
-      return this.$store.state.admin.golonganDarah.golonganDarah;
+      return this.$store.state.operator.golonganDarah.golonganDarah;
     },
   },
 
@@ -97,10 +97,7 @@ export default {
             timer: 2000,
           });
 
-          //redirect route "admin-categories"
-          this.$router.push({
-            name: "golongan-darah",
-          });
+          this.$router.go(-1);
         })
 
         //error

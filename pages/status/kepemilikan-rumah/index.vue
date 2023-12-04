@@ -15,7 +15,7 @@
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <nuxt-link
-                        :to="{ name: 'status-status-dalam-keluarga-create' }"
+                        :to="{ name: 'status-kepemilikan-rumah-create' }"
                         class="btn btn-warning btn-sm"
                         style="padding-top: 10px"
                       >
@@ -36,7 +36,7 @@
                   striped
                   bordered
                   hover
-                  :items="statusDalamKeluarga"
+                  :items="statusKepemilikanRumah"
                   :fields="fields"
                   show-empty
                 >
@@ -46,7 +46,7 @@
                   <template v-slot:cell(actions)="row">
                     <b-button
                       :to="{
-                        name: 'status-status-dalam-keluarga-edit-id',
+                        name: 'status-kepemilikan-rumah-edit-id',
                         params: { id: row.item.id },
                       }"
                       variant="warning"
@@ -96,11 +96,10 @@ export default {
         {
           label: this.dataTitle,
           key: "status",
-          tdClass: "text-center",
         },
         {
           label: "Total Peserta",
-          key: "peserta_didik_count",
+          key: "peserta_didik_fasilitas_count",
           tdClass: "text-center",
         },
         {
@@ -110,20 +109,20 @@ export default {
         },
       ],
       search: "",
-      dataTitle: "Status Dalam Keluarga",
+      dataTitle: "Status Kepemilikan Rumah",
     };
   },
 
   //hook "asyncData"
   async asyncData({ store }) {
-    await store.dispatch("operator/statusDalamKeluarga/getAllDataState");
+    await store.dispatch("operator/statusKepemilikanRumah/getAllDataState");
   },
 
   watch: {
     search(newSearchValue) {
-      this.$store.commit("operator/statusDalamKeluarga/SET_PAGE", 1);
+      this.$store.commit("operator/statusKepemilikanRumah/SET_PAGE", 1);
       this.$store.dispatch(
-        "operator/statusDalamKeluarga/getAllDataState",
+        "operator/statusKepemilikanRumah/getAllDataState",
         newSearchValue
       );
     },
@@ -131,12 +130,12 @@ export default {
 
   //computed
   computed: {
-    statusDalamKeluarga() {
-      const statusDalamKeluargaData = this.$store.state.operator.statusDalamKeluarga.statusDalamKeluarga;
+    statusKepemilikanRumah() {
+      const statusKepemilikanRumahData = this.$store.state.operator.statusKepemilikanRumah.statusKepemilikanRumah;
 
-      // Pastikan statusDalamKeluargaData adalah array sebelum menghitung indeks
-      if (Array.isArray(statusDalamKeluargaData)) {
-        return statusDalamKeluargaData;
+      // Pastikan statusKepemilikanRumahData adalah array sebelum menghitung indeks
+      if (Array.isArray(statusKepemilikanRumahData)) {
+        return statusKepemilikanRumahData;
       } else {
         return [];
       }
@@ -150,9 +149,9 @@ export default {
     },
 
     searchData() {
-      this.$store.commit("operator/statusDalamKeluarga/SET_PAGE", 1);
+      this.$store.commit("operator/statusKepemilikanRumah/SET_PAGE", 1);
       this.$store.dispatch(
-        "operator/statusDalamKeluarga/getAllDataState",
+        "operator/statusKepemilikanRumah/getAllDataState",
         this.search
       );
     },
@@ -171,11 +170,10 @@ export default {
       if (confirmationResult.isConfirmed) {
         try {
           const response = await this.$axios.delete(
-            `/api/v1/status-dalam-keluarga/${item.id}/hapus`
+            `/api/v1/status-kepemilikan-rumah/${item.id}/hapus`
           );
 
           if (response.data.status === true) {
-            // If deletion is successful, refresh data and show success alert
             this.$nuxt.refresh();
             this.$swal.fire({
               title: "BERHASIL!",

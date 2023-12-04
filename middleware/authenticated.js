@@ -1,10 +1,13 @@
 export default function ({ $auth, redirect }) {
 
-  //check loggedIn "true"
   if ($auth.loggedIn) {
-    //check role admin
-    if ($auth.strategy.name == "laravelSanctum") {
+    if ($auth.strategy.name == "ppdb") {
       return redirect('/dashboard')
     }
   }
+  // if ($auth.loggedIn) {
+  //   if ($auth.strategy.name == "laravelSanctum") {
+  //     return redirect('/dashboard')
+  //   }
+  // }
 }

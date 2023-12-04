@@ -70,7 +70,7 @@ export default {
   computed: {
     //categories
     statusDalamKeluarga() {
-      return this.$store.state.admin.statusDalamKeluarga.statusDalamKeluarga;
+      return this.$store.state.operator.statusDalamKeluarga.statusDalamKeluarga;
     },
   },
 
@@ -84,7 +84,7 @@ export default {
 
       //sending data to action "storeCategory" vuex
       await this.$store
-        .dispatch("operator/statusDalamKeluarga/storeDataState", formData)
+        .dispatch("operator/statusHartaTidakBergerak/storeDataState", formData)
 
         //success
         .then(() => {

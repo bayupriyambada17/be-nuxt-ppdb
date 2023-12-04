@@ -91,7 +91,7 @@ export default {
   //meta
   head() {
     return {
-      title: "Tahun Pelajaran - Administrator",
+      title: "Tahun Pelajaran - Dasbor Bazma",
     };
   },
 

@@ -70,7 +70,7 @@ export default {
   computed: {
     //categories
     statusDalamKeluarga() {
-      return this.$store.state.admin.statusDalamKeluarga.statusDalamKeluarga;
+      return this.$store.state.operator.statusDalamKeluarga.statusDalamKeluarga;
     },
   },
 

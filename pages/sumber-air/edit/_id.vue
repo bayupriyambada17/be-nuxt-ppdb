@@ -109,10 +109,7 @@ export default {
             timer: 2000,
           });
 
-          //redirect route "admin-categories"
-          this.$router.push({
-            name: "golongan-darah",
-          });
+          this.$router.go(-1);
         })
 
         //error

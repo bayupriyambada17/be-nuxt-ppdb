@@ -51,7 +51,6 @@ export default {
   //meta
   head() {
     return {
-      // title: "Edit - Administrator",
       title: `Edit ${this.data.name} - Dasbor Bazma`,
     };
   },
@@ -107,10 +106,7 @@ export default {
             timer: 2000,
           });
 
-          //redirect route "admin-categories"
-          this.$router.push({
-            name: "provinsi",
-          });
+          this.$router.go(-1);
         })
 
         //error

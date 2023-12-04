@@ -51,7 +51,6 @@ export default {
   //meta
   head() {
     return {
-      // title: "Edit - Administrator",
       title: `Edit ${this.data.status} - Dasbor Bazma`,
     };
   },

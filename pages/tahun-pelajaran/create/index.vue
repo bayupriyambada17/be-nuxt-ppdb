@@ -53,7 +53,7 @@ export default {
   //meta
   head() {
     return {
-      title: 'Add New Category - Administrator',
+      title: 'Add New Category - Dasbor Bazma',
 
     }
   },
@@ -98,10 +98,7 @@ export default {
             timer: 2000
           })
 
-          //redirect route "admin-categories"
-          this.$router.push({
-            name: 'tahun-pelajaran'
-          })
+          this.$router.go(-1);
 
         })
 

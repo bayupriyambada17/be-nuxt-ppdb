@@ -96,7 +96,6 @@ export default {
         {
           label: this.dataTitle,
           key: "status",
-          tdClass: "text-center",
         },
         {
           label: "Total Peserta",

@@ -66,7 +66,7 @@ export default {
    computed: {
         //categories
         tinggalBersama() {
-            return this.$store.state.admin.tinggalBersama.tinggalBersama
+            return this.$store.state.operator.tinggalBersama.tinggalBersama
         },
     },
 

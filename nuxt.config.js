@@ -76,46 +76,76 @@ export default {
   // },
   auth: {
     strategies: {
-      laravelSanctum: {
-        provider: 'laravel/sanctum',
-        url: 'http://localhost:8000',
-        cookie: {
-          name: 'XSRF-TOKEN'
+      // laravelSanctum: {
+      //   provider: 'laravel/sanctum',
+      //   url: 'http://localhost:8000',
+      //   cookie: {
+      //     name: 'XSRF-TOKEN'
+      //   },
+      //   endpoints: {
+      //     // csrf: {
+      //     //   withCredentials: true,
+      //     //   headers: {
+      //     //     'X-Requested-With': 'XMLHttpRequest',
+      //     //     'Content-Type': 'application/json',
+      //     //     Accept: 'application/json'
+      //     //   }
+      //     // },
+      //     login: {
+      //       url: '/api/v1/auth/login',
+      //       method: 'POST',
+      //       propertyName: 'token'
+      //     },
+      //     logout: {
+      //       url: '/api/v1/auth/logout',
+      //       method: 'POST'
+      //     },
+      //     user: {
+      //       url: '/api/v1/auth/user',
+      //       method: 'get',
+      //       propertyName: 'user'
+      //     },
+      //   },
+      //   user: {
+      //     property: false,
+      //   }
+      // },
+      //strategy "admin"
+      ppdb: {
+        scheme: 'local',
+        token: {
+          property: 'token',
+          required: true,
+          type: 'Bearer',
+          expires_in: 60 * 60 * 24 * 7
+        },
+        user: {
+          property: 'user',
+      // autoFetch: true
         },
         endpoints: {
-          // csrf: {
-          //   withCredentials: true,
-          //   headers: {
-          //     'X-Requested-With': 'XMLHttpRequest',
-          //     'Content-Type': 'application/json',
-          //     Accept: 'application/json'
-          //   }
-          // },
           login: {
-            url: '/api/v1/auth/login',
-            method: 'POST',
+            url: '/api/v1/login',
+            method: 'post',
             propertyName: 'token'
           },
           logout: {
-            url: '/api/v1/auth/logout',
-            method: 'POST'
+            url: '/api/v1/logout',
+            method: 'post'
           },
           user: {
-            url: '/api/v1/auth/user',
+            url: '/api/v1/user',
             method: 'get',
             propertyName: 'user'
-          },
+          }
         },
-        user: {
-          property: false,
-        }
       },
     },
-    redirect: {
-      login: '/',
-      logout: '/',
-      dashboard: '/dashboard',
-    }
+    // redirect: {
+    //   login: '/',
+    //   logout: '/',
+    //   dashboard: '/dashboard',
+    // }
   },
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [

@@ -7,7 +7,7 @@
             <div class="card border-0 rounded shadow-sm border-top-orange">
               <div class="card-header">
                 <span class="font-weight-bold"
-                  ><i class="fa fa-folder">{{ dataTitle }}</i></span
+                  ><i class="fa fa-folder"></i> {{ dataTitle }}</span
                 >
               </div>
               <div class="card-body">
@@ -15,7 +15,7 @@
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <nuxt-link
-                        :to="{ name: 'tahun-pelajaran-create' }"
+                        :to="{ name: 'tahun-lulus-create' }"
                         class="btn btn-warning btn-sm"
                         style="padding-top: 10px"
                       >
@@ -27,7 +27,7 @@
                       v-model="search"
                       @keypress.enter="searchData"
                       class="form-control"
-                      placeholder="cari berdasarkan nama category"
+                      placeholder="cari berdasarkan tahun"
                     />
                     <div class="input-group-append">
                       <button @click="searchData" class="btn btn-warning">
@@ -41,7 +41,7 @@
                   striped
                   bordered
                   hover
-                  :items="tahunPelajaran"
+                  :items="tahunLulus"
                   :fields="fields"
                   show-empty
                 >
@@ -51,7 +51,7 @@
                         name: 'tahun-lulus-edit-id',
                         params: { id: row.item.id },
                       }"
-                      variant="info"
+                      variant="warning"
                       size="sm"
                     >
                       Ubah
@@ -81,7 +81,7 @@ export default {
   //meta
   head() {
     return {
-      title: `${this.dataTitle} - Dasbor Bazma`,
+      title: "Tahun Lulus - Dasbor Bazma",
     };
   },
 
@@ -90,9 +90,10 @@ export default {
     return {
       //table header
       fields: [
+
         {
           label: "Tahun Lulus",
-          key: "tahun_lulus",
+          key: "tahun",
         },
         {
           label: "Data Aktif",
@@ -107,18 +108,18 @@ export default {
 
       search: "",
 
-      dataTitle: "Tahun Pelajaran",
+      dataTitle: "Tahun Lulus",
     };
   },
 
   //hook "asyncData"
   async asyncData({ store }) {
-    await store.dispatch("operator/tahunLulus/getTahunLulusData");
+    await store.dispatch("operator/tahunLulus/getAllDataState");
   },
 
   //computed
   computed: {
-    tahunPelajaran() {
+    tahunLulus() {
       // return
       return this.$store.state.operator.tahunLulus.tahunLulus;
     },
@@ -129,7 +130,7 @@ export default {
       this.$store.commit("operator/tahunLulus/SET_PAGE", 1);
 
       this.$store.dispatch(
-        "operator/TahunLulus/getahunLulusData",
+        "operator/tahunLulus/getAllDataState",
         this.search
       );
     },
@@ -149,7 +150,7 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             this.$store
-              .dispatch("operator/tahunPelajaran/destroyTahunPelajaran", id)
+              .dispatch("operator/tahunLulus/destroytahunLulus", id)
               .then(() => {
                 //feresh data
                 this.$nuxt.refresh();

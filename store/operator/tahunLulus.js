@@ -102,13 +102,13 @@ export const actions = {
 
   },
 
-  updateDataState({ dispatch, commit }, { tahunLulusId, payload }) {
+  updateDataState({ dispatch, commit }, { dataId, payload }) {
 
     //set promise
     return new Promise((resolve, reject) => {
 
       //store to Rest API "/api/admin/categories/:id" with method "POST"
-      this.$axios.post(`/api/v1/tahun-lulus/${tahunLulusId}/ubah`, payload)
+      this.$axios.post(`/api/v1/tahun-lulus/${dataId}/ubah`, payload)
 
         //success
         .then(() => {

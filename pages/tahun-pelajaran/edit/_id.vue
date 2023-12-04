@@ -13,16 +13,16 @@
               <div class="card-body">
                 <form @submit.prevent="updateData">
                   <div class="form-group">
-                    <label>NAMA CATEGORY</label>
+                    <label>Tahun Lulus</label>
                     <input
                       type="text"
-                      v-model="data.tahun_pelajaran"
-                      placeholder="Masukkan Nama Category"
+                      v-model="data.tahun"
+                      placeholder="Masukkan Tahun Lulus"
                       class="form-control"
                     />
-                    <div v-if="validation.tahun_pelajaran" class="mt-2">
+                    <div v-if="validation.tahun" class="mt-2">
                       <b-alert show variant="danger">{{
-                        validation.tahun_pelajaran[0]
+                        validation.tahun[0]
                       }}</b-alert>
                     </div>
                   </div>
@@ -66,7 +66,7 @@ export default {
   //meta
   head() {
     return {
-      title: "Edit Category - Administrator",
+      title: "Edit Tahun Pelajaran - Dasbor Bazm",
     };
   },
 
@@ -74,7 +74,7 @@ export default {
     return {
       //state category
       data: {
-        tahun_pelajaran: "",
+        tahun: "",
         is_active: "Ya",
       },
       //state validation
@@ -92,7 +92,7 @@ export default {
 
   //mounted
   mounted() {
-    this.data.tahun_pelajaran =this.$store.state.operator.tahunPelajaran.tahunPelajaran.tahun_pelajaran;
+    this.data.tahun =this.$store.state.operator.tahunPelajaran.tahunPelajaran.tahun;
     this.data.is_active =this.$store.state.operator.tahunPelajaran.tahunPelajaran.is_active;
   },
 
@@ -105,7 +105,7 @@ export default {
       let formData = new FormData();
 
 
-      formData.append("tahun_pelajaran", this.data.tahun_pelajaran);
+      formData.append("tahun", this.data.tahun);
       formData.append("is_active", is_active_value);
       // formData.append("_method", "PATCH");
 
@@ -127,10 +127,7 @@ export default {
             timer: 2000,
           });
 
-          //redirect route "admin-categories"
-          this.$router.push({
-            name: "tahun-pelajaran",
-          });
+          this.$router.go(-1);
         })
 
         //error

@@ -51,7 +51,6 @@ export default {
   //meta
   head() {
     return {
-      // title: "Edit - Administrator",
       title: `Edit ${this.data.status} - Dasbor Bazma`,
     };
   },
@@ -73,7 +72,7 @@ export default {
   //hook "asyncData"
   async asyncData({ store, route }) {
     await store.dispatch(
-      "operator/golonganDarah/getDetailIdstate",
+      "operator/penerimaBantuanSosial/getDetailIdstate",
       route.params.id
     );
   },
@@ -81,7 +80,7 @@ export default {
   //mounted
   mounted() {
     this.data.status =
-      this.$store.state.operator.golonganDarah.golonganDarah.status;
+      this.$store.state.operator.penerimaBantuanSosial.penerimaBantuanSosial.status;
   },
 
   //method
@@ -94,7 +93,7 @@ export default {
       formData.append("status", this.data.status);
 
       await this.$store
-        .dispatch("operator/golonganDarah/updateDataState", {
+        .dispatch("operator/penerimaBantuanSosial/updateDataState", {
           dataId: this.$route.params.id,
           payload: formData,
         })
@@ -110,10 +109,7 @@ export default {
             timer: 2000,
           });
 
-          //redirect route "admin-categories"
-          this.$router.push({
-            name: "golongan-darah",
-          });
+          this.$router.go(-1);
         })
 
         //error

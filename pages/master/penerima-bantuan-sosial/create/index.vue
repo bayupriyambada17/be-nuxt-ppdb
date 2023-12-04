@@ -66,7 +66,7 @@ export default {
    computed: {
         //categories
         penerimaBantuanSosial() {
-            return this.$store.state.admin.penerimaBantuanSosial.penerimaBantuanSosial
+            return this.$store.state.operator.penerimaBantuanSosial.penerimaBantuanSosial
         },
     },
 
@@ -94,9 +94,7 @@ export default {
             timer: 2000
           })
 
-          this.$router.push({
-            name: 'master-penerima-bantuan-sosial'
-          })
+          this.$router.go(-1);
 
         })
 
