@@ -99,25 +99,28 @@ export default {
     };
   },
   // Halaman login Nuxt.js
-
   methods: {
     async login() {
       try {
-        await this.$axios.$get('sanctum/csrf-cookie');
+        await this.$axios.$get("sanctum/csrf-cookie");
 
-        // Now you can access and set cookies using this.$cookies
-        const xsrfToken = this.$cookies.get('XSRF-TOKEN');
+        // // Now you can access and set cookies using this.$cookies
+        const xsrfToken = this.$cookies.get("XSRF-TOKEN");
 
         // Make your login request with the X-XSRF-TOKEN header
-        const response = await this.$auth.loginWith('operator', {
+        const response = await this.$auth.loginWith("laravelSanctum", {
           data: {
             email: this.user.email,
             password: this.user.password,
           },
+          method:"POST",
           headers: {
-            'X-XSRF-TOKEN': xsrfToken,
+            "X-XSRF-TOKEN": xsrfToken,
+            'authorization' : "bearer"
           },
         });
+
+        console.log(response);
         // Melakukan login dengan otentikasi 'operator'
         // const response = await this.$auth.loginWith("operator", {
         //   data: {

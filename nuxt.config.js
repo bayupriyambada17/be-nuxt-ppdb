@@ -63,20 +63,42 @@ export default {
   buildModules: [
   ],
 
+
+  // axios: {
+  //   proxy: true,
+  //   credentials: true
+  // },
+  // proxy: {
+  //   '/laravel': {
+  //     target: 'https://api.ppdb.smktibazma.sch.id',
+  //     pathRewrite: { '^/laravel': '/' }
+  //   }
+  // },
   auth: {
     strategies: {
-      operator: {
+      laravelSanctum: {
         provider: 'laravel/sanctum',
-        url: 'https://api.ppdb.smktibazma.sch.id',
+        url: 'http://localhost:8000',
+        cookie: {
+          name: 'XSRF-TOKEN'
+        },
         endpoints: {
+          // csrf: {
+          //   withCredentials: true,
+          //   headers: {
+          //     'X-Requested-With': 'XMLHttpRequest',
+          //     'Content-Type': 'application/json',
+          //     Accept: 'application/json'
+          //   }
+          // },
           login: {
             url: '/api/v1/auth/login',
-            method: 'post',
+            method: 'POST',
             propertyName: 'token'
           },
           logout: {
             url: '/api/v1/auth/logout',
-            method: 'post'
+            method: 'POST'
           },
           user: {
             url: '/api/v1/auth/user',
@@ -85,7 +107,7 @@ export default {
           },
         },
         user: {
-          property: 'user',
+          property: false,
         }
       },
     },
@@ -97,9 +119,7 @@ export default {
   },
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
-    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
     'vue-sweetalert2/nuxt',
@@ -109,11 +129,15 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'https://api.ppdb.smktibazma.sch.id',
+    baseURL: 'http://localhost:8000',
     credentials: true,
+
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    babel: {
+      compact: true,
+    },
   }
 }

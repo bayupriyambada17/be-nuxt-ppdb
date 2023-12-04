@@ -5,7 +5,7 @@ export default function ({ $auth, redirect }) {
     return redirect('/')
   }
 
-  if ($auth.strategy.name != "operator") {
+  if ($auth.strategy.name != "laravelSanctum") {
     return redirect('/')
   } else {
     return;
