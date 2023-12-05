@@ -170,5 +170,10 @@ export default {
     babel: {
       compact: true,
     },
+    "src": "nuxt.config.js",
+    "use": "@nuxtjs/vercel-builder",
+    "config": {
+      "generateStaticRoutes": true
+    }
   }
 }
