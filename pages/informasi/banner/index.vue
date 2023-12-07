@@ -7,59 +7,27 @@
             <div class="card border-0 rounded shadow-sm border-top-orange">
               <div class="card-header">
                 <span class="font-weight-bold"
-                  ><i class="fa fa-folder"></i> {{ dataTitle }}</span
+                  ><i class="fa fa-laptop"></i> SLIDERS</span
                 >
               </div>
               <div class="card-body">
-                <div class="form-group">
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <nuxt-link
-                        :to="{ name: 'informasi-ppdb-create' }"
-                        class="btn btn-warning btn-sm"
-                        style="padding-top: 10px"
-                      >
-                        <i class="fa fa-plus-circle"></i> Tambah
-                      </nuxt-link>
-                    </div>
-                    <input
-                      type="text"
-                      v-model="search"
-                      @keypress.enter="searchData"
-                      class="form-control"
-                      placeholder="cari berdasarkan data"
-                    />
-                  </div>
-                </div>
+                <nuxt-link
+                  :to="{ name: 'informasi-banner-create' }"
+                  class="btn btn-warning btn-sm mb-3 p-2"
+                >
+                  <i class="fa fa-plus-circle"></i> ADD NEW</nuxt-link
+                >
 
                 <b-table
                   striped
                   bordered
                   hover
-                  :items="informasiPpdb"
+                  :items="banner.data"
                   :fields="fields"
                   show-empty
                 >
-                  <template v-slot:cell(index)="row">
-                    {{ getIndex(row.index) }}
-                  </template>
-                  <template v-slot:cell(actions)="row">
-                    <b-button
-                      :to="{
-                        name: 'informasi-ppdb-edit-id',
-                        params: { id: row.item.id },
-                      }"
-                      variant="warning"
-                      size="sm"
-                    >
-                      Ubah
-                    </b-button>
-                    <b-button
-                      variant="danger"
-                      size="sm"
-                      @click="destroy(row.item)"
-                      >Hapus</b-button
-                    >
+                  <template v-slot:cell(gambar)="data">
+                    <img class="img-fluid" width="200" :src="data.item.gambar" />
                   </template>
                 </b-table>
               </div>
@@ -79,7 +47,7 @@ export default {
   //meta
   head() {
     return {
-      title: `${this.dataTitle} - Dasbor Bazma`,
+      title: "Banner - Dasbor Bazma",
     };
   },
 
@@ -89,17 +57,8 @@ export default {
       //table header
       fields: [
         {
-          label: "#",
-          key: "index",
-          tdClass: "text-center",
-        },
-        {
-          label: this.dataTitle,
-          key: "status",
-        },
-        {
-          label: "Total Peserta",
-          key: "peserta_didik_fasilitator_count",
+          label: "Gambar",
+          key: "gambar",
           tdClass: "text-center",
         },
         {
@@ -108,93 +67,19 @@ export default {
           tdClass: "text-center",
         },
       ],
-      search: "",
-      dataTitle: "Informasi PPDB",
     };
   },
 
   //hook "asyncData"
   async asyncData({ store }) {
-    await store.dispatch("operator/informasiPpdb/getAllDataState");
-  },
-
-  watch: {
-    search(newSearchValue) {
-      this.$store.commit("operator/informasiPpdb/SET_PAGE", 1);
-      this.$store.dispatch(
-        "operator/informasiPpdb/getAllDataState",
-        newSearchValue
-      );
-    },
+    await store.dispatch("operator/banner/getAllDataState")
   },
 
   //computed
   computed: {
-    informasiPpdb() {
-      const informasiPpdbData = this.$store.state.operator.informasiPpdb.informasiPpdb;
-
-      // Pastikan informasiPpdbData adalah array sebelum menghitung indeks
-      if (Array.isArray(informasiPpdbData)) {
-        return informasiPpdbData;
-      } else {
-        return [];
-      }
-    },
-  },
-
-  methods: {
-    getIndex(index) {
-      // Menghitung indeks dengan menambahkan 1
-      return index + 1;
-    },
-
-    searchData() {
-      this.$store.commit("operator/informasiPpdb/SET_PAGE", 1);
-      this.$store.dispatch(
-        "operator/informasiPpdb/getAllDataState",
-        this.search
-      );
-    },
-
-    async destroy(item) {
-      const confirmationResult = await this.$swal.fire({
-        title: `Yakin ingin menghapus data: ${item.status}?`,
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "YA, HAPUS!",
-        cancelButtonText: "TIDAK",
-      });
-
-      if (confirmationResult.isConfirmed) {
-        try {
-          const response = await this.$axios.delete(
-            `/api/v1/informasi-ppdb/${item.id}/hapus`
-          );
-
-          // Check the response from the API
-          if (response.data.status === true) {
-            // If deletion is successful, refresh data and show success alert
-            this.$nuxt.refresh();
-            this.$swal.fire({
-              title: "BERHASIL!",
-              text: response.data.message,
-              icon: "success",
-              showConfirmButton: false,
-              timer: 2000,
-            });
-          }
-        } catch (error) {
-          this.$swal.fire({
-            title: "GAGAL!",
-            text: error.response.data.message,
-            icon: "error",
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "Tutup",
-          });
-        }
-      }
+    //sliders
+    banner() {
+      return this.$store.state.operator.banner.banner;
     },
   },
 };

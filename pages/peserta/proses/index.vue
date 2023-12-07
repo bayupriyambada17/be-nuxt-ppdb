@@ -6,14 +6,16 @@
           <div class="col-md-12">
             <div class="card border-0 rounded shadow-sm border-top-orange">
               <div class="card-header">
-                <span class="font-weight-bold"
-                  ><i class="fa fa-folder"></i> {{ dataTitle }}</span
-                >
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="font-weight-bold"
+                    ><i class="fa fa-folder"></i> {{ dataTitle }}</span
+                  >
+                  <button class="btn btn-sm btn-warning">Download Data</button>
+                </div>
               </div>
               <div class="card-body">
                 <div class="form-group">
                   <div class="input-group mb-3">
-
                      <input
                       type="text"
                       v-model="search"
@@ -21,11 +23,6 @@
                       class="form-control"
                       :placeholder="'Cari berdasarkan ' + dataTitle"
                     />
-                    <!-- <div class="input-group-append">
-                      <button @click="searchData" class="btn btn-warning">
-                        <i class="fa fa-search"></i>SEARCH
-                      </button>
-                    </div> -->
                   </div>
                 </div>
 
@@ -33,20 +30,20 @@
                   striped
                   bordered
                   hover
-                  :items="provinsi"
+                  :items="pesertaProses"
                   :fields="fields"
                   show-empty
                 >
                 <template v-slot:cell(actions)="row">
                     <b-button
                       :to="{
-                        name: 'provinsi-edit-id',
+                        name: 'peserta-proses-id-validasi',
                         params: { id: row.item.id },
                       }"
                       variant="warning"
                       size="sm"
                     >
-                      Ubah
+                      Validasi Peserta
                     </b-button>
                   </template>
                 </b-table>
@@ -98,9 +95,9 @@ export default {
           key: "tanggal_terdaftar",
         },
         {
-          label: "Cek Peserta Didik",
-          key: "is_pendaftar",
-          tdClass: "text-center fw-bold",
+          label: "",
+          key: "actions",
+          tdClass: "text-center",
         },
       ],
       search: "",
@@ -115,7 +112,7 @@ export default {
 
   //computed
   computed: {
-    provinsi() {
+    pesertaProses() {
       return this.$store.state.operator.peserta.proses.proses.map((item, index) => {
         return { ...item, index: index + 1 };
       });
@@ -126,7 +123,7 @@ export default {
   //   search(newSearchValue) {
   //     this.$store.commit("operator/dayaListrik/SET_PAGE", 1);
   //     this.$store.dispatch(
-  //       "operator/provinsi/getAllDataState",
+  //       "operator/pesertaProses/getAllDataState",
   //       newSearchValue
   //     );
   //   },
@@ -134,9 +131,9 @@ export default {
 
   methods: {
     // searchData() {
-    //   this.$store.commit("operator/provinsi/SET_PAGE", 1);
+    //   this.$store.commit("operator/pesertaProses/SET_PAGE", 1);
     //   this.$store.dispatch(
-    //     "operator/provinsi/getAllDataState",
+    //     "operator/pesertaProses/getAllDataState",
     //     this.search
     //   );
     // },

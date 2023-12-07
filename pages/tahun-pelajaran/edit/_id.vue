@@ -7,7 +7,7 @@
             <div class="card border-0 rounded shadow-sm border-top-orange">
               <div class="card-header">
                 <span class="font-weight-bold"
-                  ><i class="fa fa-folder"></i> EDIT CATEGORY</span
+                  ><i class="fa fa-folder"></i> Edit Tahun Pelajaran</span
                 >
               </div>
               <div class="card-body">
@@ -16,13 +16,13 @@
                     <label>Tahun Lulus</label>
                     <input
                       type="text"
-                      v-model="data.tahun"
+                      v-model="data.tahun_pelajaran"
                       placeholder="Masukkan Tahun Lulus"
                       class="form-control"
                     />
-                    <div v-if="validation.tahun" class="mt-2">
+                    <div v-if="validation.tahun_pelajaran" class="mt-2">
                       <b-alert show variant="danger">{{
-                        validation.tahun[0]
+                        validation.tahun_pelajaran[0]
                       }}</b-alert>
                     </div>
                   </div>
@@ -74,7 +74,7 @@ export default {
     return {
       //state category
       data: {
-        tahun: "",
+        tahun_pelajaran: "",
         is_active: "Ya",
       },
       //state validation
@@ -92,7 +92,7 @@ export default {
 
   //mounted
   mounted() {
-    this.data.tahun =this.$store.state.operator.tahunPelajaran.tahunPelajaran.tahun;
+    this.data.tahun_pelajaran =this.$store.state.operator.tahunPelajaran.tahunPelajaran.tahun_pelajaran;
     this.data.is_active =this.$store.state.operator.tahunPelajaran.tahunPelajaran.is_active;
   },
 
@@ -105,7 +105,7 @@ export default {
       let formData = new FormData();
 
 
-      formData.append("tahun", this.data.tahun);
+      formData.append("tahun_pelajaran", this.data.tahun_pelajaran);
       formData.append("is_active", is_active_value);
       // formData.append("_method", "PATCH");
 

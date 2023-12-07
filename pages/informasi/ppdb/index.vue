@@ -131,7 +131,8 @@ export default {
   //computed
   computed: {
     informasiPpdb() {
-      const informasiPpdbData = this.$store.state.operator.informasiPpdb.informasiPpdb;
+      const informasiPpdbData =
+        this.$store.state.operator.informasiPpdb.informasiPpdb;
 
       // Pastikan informasiPpdbData adalah array sebelum menghitung indeks
       if (Array.isArray(informasiPpdbData)) {

@@ -63,54 +63,8 @@ export default {
   buildModules: [
   ],
 
-
-  // axios: {
-  //   proxy: true,
-  //   credentials: true
-  // },
-  // proxy: {
-  //   '/laravel': {
-  //     target: 'https://api.ppdb.smktibazma.sch.id',
-  //     pathRewrite: { '^/laravel': '/' }
-  //   }
-  // },
   auth: {
     strategies: {
-      // laravelSanctum: {
-      //   provider: 'laravel/sanctum',
-      //   url: 'http://localhost:8000',
-      //   cookie: {
-      //     name: 'XSRF-TOKEN'
-      //   },
-      //   endpoints: {
-      //     // csrf: {
-      //     //   withCredentials: true,
-      //     //   headers: {
-      //     //     'X-Requested-With': 'XMLHttpRequest',
-      //     //     'Content-Type': 'application/json',
-      //     //     Accept: 'application/json'
-      //     //   }
-      //     // },
-      //     login: {
-      //       url: '/api/v1/auth/login',
-      //       method: 'POST',
-      //       propertyName: 'token'
-      //     },
-      //     logout: {
-      //       url: '/api/v1/auth/logout',
-      //       method: 'POST'
-      //     },
-      //     user: {
-      //       url: '/api/v1/auth/user',
-      //       method: 'get',
-      //       propertyName: 'user'
-      //     },
-      //   },
-      //   user: {
-      //     property: false,
-      //   }
-      // },
-      //strategy "admin"
       ppdb: {
         scheme: 'local',
         token: {

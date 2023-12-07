@@ -7,7 +7,7 @@ export const state = () => ({
   //page
   page: 1,
 
-  proses: {}
+  proses: {},
 
 })
 
@@ -68,6 +68,30 @@ export const actions = {
         .then(response => {
           //commit to mutation "SET_CATEGORY_DATA"
           commit('SET_FUNCTION_DATA', response.data.data)
+
+          //resolve promise
+          resolve()
+
+        })
+
+    })
+
+  },
+  getDetailIdValidation({ commit }, payload) {
+
+    //set promise
+    return new Promise((resolve, reject) => {
+
+      //get to Rest API "/api/admin/categories/:id" with method "GET"
+      this.$axios.get(`/api/v1/peserta-didik/proses/${payload}/validasi`)
+
+        //success
+        .then(response => {
+
+          //commit to mutation "SET_CATEGORY_DATA"
+          commit('SET_FUNCTION_DATA', response.data.data)
+          // console.log(response.data.data)
+
 
           //resolve promise
           resolve()

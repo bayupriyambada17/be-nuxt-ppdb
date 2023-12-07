@@ -2,8 +2,7 @@
   <div class="fade-in">
     <div class="text-center mb-4">
       <nuxt-link to="/" class="text-black">
-        <!-- <img src="/images/logo.png" width="50"> -->
-        <h3 class="mt-2 font-weight-bold">SMK TI BAZMA</h3>
+        <img src="/images/logo.png" width="200">
       </nuxt-link>
     </div>
     <div class="card-group">
@@ -85,7 +84,7 @@ export default {
   //meta
   head() {
     return {
-      title: "Login - Administrator",
+      title: "Login - Dasbor Bazma",
     };
   },
 
@@ -110,7 +109,6 @@ export default {
             password: this.user.password,
           },
         })
-
         .then(() => {
           //redirect
           this.$router.push({

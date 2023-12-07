@@ -6,26 +6,28 @@
           <div class="col-md-12">
             <div class="card border-0 rounded shadow-sm border-top-orange">
               <div class="card-header">
-                <span class="font-weight-bold"
-                  ><i class="fa fa-folder"></i> {{ dataTitle }}</span
-                >
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="font-weight-bold"
+                    ><i class="fa fa-folder"></i> {{ dataTitle }}</span
+                  >
+                  <button
+                    @click="pesertaDiterimaExport"
+                    class="btn btn-sm btn-warning"
+                  >
+                    Download Data
+                  </button>
+                </div>
               </div>
               <div class="card-body">
                 <div class="form-group">
                   <div class="input-group mb-3">
-
-                     <input
+                    <input
                       type="text"
                       v-model="search"
                       @keypress.enter="searchData"
                       class="form-control"
                       :placeholder="'Cari berdasarkan ' + dataTitle"
                     />
-                    <!-- <div class="input-group-append">
-                      <button @click="searchData" class="btn btn-warning">
-                        <i class="fa fa-search"></i>SEARCH
-                      </button>
-                    </div> -->
                   </div>
                 </div>
 
@@ -37,7 +39,7 @@
                   :fields="fields"
                   show-empty
                 >
-                <template v-slot:cell(actions)="row">
+                  <template v-slot:cell(actions)="row">
                     <b-button
                       :to="{
                         name: 'provinsi-edit-id',
@@ -116,9 +118,11 @@ export default {
   //computed
   computed: {
     provinsi() {
-      return this.$store.state.operator.peserta.diterima.diterima.map((item, index) => {
-        return { ...item, index: index + 1 };
-      });
+      return this.$store.state.operator.peserta.diterima.diterima.map(
+        (item, index) => {
+          return { ...item, index: index + 1 };
+        }
+      );
     },
   },
 
@@ -133,6 +137,33 @@ export default {
   // },
 
   methods: {
+    async pesertaDiterimaExport() {
+      try {
+        const response = await this.$axios.post(
+          "/api/v1/peserta/diterima-export",
+          {
+            responseType: "blob",
+            'content-type': "application/json"
+          }
+        );
+
+        if (response.data instanceof Blob) {
+          // Create a Blob URL
+          const blobUrl = URL.createObjectURL(response.data);
+
+          // Create a link element and trigger a click to download the file
+          const link = document.createElement('a');
+          link.href = blobUrl;
+          link.download = 'exported_data.xlsx';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      } catch (error) {
+        console.error("Error exporting data:", error);
+        // Handle error
+      }
+    },
     // searchData() {
     //   this.$store.commit("operator/provinsi/SET_PAGE", 1);
     //   this.$store.dispatch(
@@ -140,7 +171,7 @@ export default {
     //     this.search
     //   );
     // },
-  }
+  },
 };
 </script>
 

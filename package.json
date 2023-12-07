@@ -19,6 +19,7 @@
     "cookie-universal-nuxt": "^2.2.2",
     "core-js": "^3.25.3",
     "nuxt": "^2.15.8",
+    "nuxt-socket-io": "^3.0.13",
     "vue": "^2.7.10",
     "vue-chartjs": "^3.5.1",
     "vue-server-renderer": "^2.7.10",

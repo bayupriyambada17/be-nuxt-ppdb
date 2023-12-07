@@ -69,8 +69,8 @@ export default {
 
   computed: {
     //categories
-    statusKepemilikanRuamh() {
-      return this.$store.state.operator.statusKepemilikanRuamh.statusKepemilikanRuamh;
+    statusKepemilikanRumah() {
+      return this.$store.state.operator.statusKepemilikanRumah.statusKepemilikanRumah;
     },
   },
 
@@ -84,7 +84,7 @@ export default {
 
       //sending data to action "storeCategory" vuex
       await this.$store
-        .dispatch("operator/statusKepemilikanRuamh/storeDataState", formData)
+        .dispatch("operator/statusKepemilikanRumah/storeDataState", formData)
 
         //success
         .then(() => {
