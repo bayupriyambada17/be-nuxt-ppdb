@@ -172,7 +172,6 @@ export default {
       ditolak: pesertaCount.data.ditolak,
       proses: pesertaCount.data.proses,
     };
-    console.log(pesertaHari);
     return {
       peserta,
       pesertaHari,

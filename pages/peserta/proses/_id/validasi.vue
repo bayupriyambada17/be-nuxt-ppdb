@@ -56,6 +56,14 @@
                     ><b>Informasi PPDB:</b>
                     {{ pesertaProses.informasi_ppdb }}</b-list-group-item
                   >
+                  <b-list-group-item
+                    ><b>Sosial Media:</b>
+                    {{ pesertaProses.sosial_media }}</b-list-group-item
+                  >
+                  <b-list-group-item
+                    ><b>Sekolah Menengah Pertama (SMP):</b>
+                    {{ pesertaProses.smp_derajat }}</b-list-group-item
+                  >
                 </b-list-group>
               </div>
             </div>
@@ -327,6 +335,45 @@
                 <div class="card border-0 rounded shadow-sm border-top-orange">
                   <div class="card-header">
                     <span class="font-weight-bold"
+                      ><i class="fa fa-folder"></i> Data Keputusan Peserta</span
+                    >
+                  </div>
+                  <div class="card-body">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th class="text-center" scope="col">Keputusan</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Mengikuti Rangkaian Tes</th>
+                          <td class="text-center">
+                            {{ pesertaProses.dokumen.rangkaian_tes }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Dokumen Palsu</th>
+                          <td class="text-center">
+                            {{ pesertaProses.dokumen.dokumen_jika_palsu }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Pelanggaran Berlaku</th>
+                          <td class="text-center">
+                            {{ pesertaProses.dokumen.pelanggaran_keputusan }}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 mt-3">
+                <div class="card border-0 rounded shadow-sm border-top-orange">
+                  <div class="card-header">
+                    <span class="font-weight-bold"
                       ><i class="fa fa-folder"></i> Data Wali (Opsional)</span
                     >
                   </div>
@@ -518,21 +565,78 @@
                   <div class="card-body">
                     <table class="table">
                       <tbody>
-                        <!-- <tr>
-                          <th colspan="2" class="text-center">Matematika</th>
-                        </tr> -->
+                        <tr>
+                          <th>Essai Karangan</th>
+                          <td class="text-center">
+                            <ButtonFileItem
+                              v-if="
+                                pesertaProses.dokumen &&
+                                pesertaProses.dokumen.essay_karangan
+                              "
+                              :links="pesertaProses.dokumen.essay_karangan"
+                            />
+                          </td>
+                        </tr>
                         <tr>
                           <th>Kartu Keluarga</th>
                           <td class="text-center">
-                            <a
-                              :href="pesertaProses.riwayat.kk"
-                              target="_blank"
-                              class="btn btn-sm btn-warning text-white"
-                              rel="noopener noreferrer"
-                            >
-                              Lihat Dokumen
-                            </a>
-
+                            <ButtonFileItem
+                              v-if="
+                                pesertaProses.dokumen &&
+                                pesertaProses.dokumen.kk
+                              "
+                              :links="pesertaProses.dokumen.kk"
+                            />
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Foto Rumah</th>
+                          <td class="text-center">
+                            <ButtonFileItem
+                              v-if="
+                                pesertaProses.dokumen &&
+                                pesertaProses.dokumen.upload_pdf_foto_rumah
+                              "
+                              :links="pesertaProses.dokumen.upload_pdf_foto_rumah"
+                            />
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Pas Foto</th>
+                          <td class="text-center">
+                            <ButtonFileItem
+                              v-if="
+                                pesertaProses.dokumen &&
+                                pesertaProses.dokumen.pas_foto
+                              "
+                              :links="pesertaProses.dokumen.pas_foto"
+                            />
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>SKTM</th>
+                          <td class="text-center">
+                            <ButtonFileItem
+                              v-if="
+                                pesertaProses.dokumen &&
+                                pesertaProses.dokumen.sktm
+                              "
+                              :links="pesertaProses.dokumen.sktm"
+                            />
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Upload Surat Rekomendasi</th>
+                          <td class="text-center">
+                            <ButtonFileItem
+                              v-if="
+                                pesertaProses.dokumen &&
+                                pesertaProses.dokumen.upload_surat_rekomendasi
+                              "
+                              :links="
+                                pesertaProses.dokumen.upload_surat_rekomendasi
+                              "
+                            />
                           </td>
                         </tr>
                       </tbody>
@@ -549,15 +653,25 @@
 </template>
 
 <script>
+import ButtonFileItem from '~/components/shared/ButtonFileItem.vue';
 export default {
   layout: "operator",
-
+  components: {
+    ButtonFileItem,
+  },
   //meta
   head() {
     return {
       title: this.pesertaProses.nama_lengkap
         ? `${this.pesertaProses.nama_lengkap} - Dasbor Bazma`
         : "Validasi Data - Dasbor Bazma",
+    };
+  },
+
+  data() {
+    return {
+      pesertaProses: {},
+      dataTitle: "Validasi Data",
     };
   },
 
@@ -568,31 +682,11 @@ export default {
       );
       return { pesertaProses: response.data.data };
     } catch (error) {
-      console.error("Error fetching data:", error);
       return { pesertaProses: {} };
     }
   },
 
   methods: {
-    async handleLihatDokumenClick() {
-      try {
-        // Make an API call to fetch data
-        const response = await $axios.get(
-          `/api/v1/peserta-didik/proses/${params.id}/validasi`
-        );
-        const dokumenData = response.data.data;
-
-        // Handle the fetched data as needed, for example, log it
-        console.log("Fetched Dokumen Data:", dokumenData);
-
-        if (dokumenData.url) {
-          window.open(dokumenData.url, "_blank");
-        }
-      } catch (error) {
-        console.error("Error fetching dokumen data:", error);
-        // Handle error
-      }
-    },
 
     async terimaPeserta(id) {
       const confirmationResult = await this.$swal.fire({
@@ -674,12 +768,6 @@ export default {
         }
       }
     },
-  },
-  data() {
-    return {
-      pesertaProses: {},
-      dataTitle: "Validasi Data",
-    };
   },
 };
 </script>
