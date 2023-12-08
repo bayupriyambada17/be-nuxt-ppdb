@@ -61,7 +61,25 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    '@nuxtjs/pwa',	// <-- register PWA
+
   ],
+  pwa: {
+    meta: {
+      title: 'Bazma - Monitoring Peserta Didik Baru Bazma',
+      author: 'Bayu Priyambada'
+    },
+    manifest: {
+      name: 'Bazma',
+      short_name: 'bazma',
+      description: 'Monitoring Peserta Didik Baru Bazma',
+      lang: 'en'
+    },
+    icon: {
+      fileName: 'images/logo.png',
+      sizes: [64, 120, 144, 152, 192, 384, 512]
+    }
+  },
 
   auth: {
     strategies: {
