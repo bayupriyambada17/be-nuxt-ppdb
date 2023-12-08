@@ -45,6 +45,19 @@
                   :fields="fields"
                   show-empty
                 >
+                  <template v-slot:cell(is_active)="row">
+                    <b-form-checkbox
+                      id="checkbox-1"
+                      name="checkbox-1"
+                      :model="row.item.is_active === 1"
+                      true-value="1"
+                      false-value="0"
+                    >
+                    </b-form-checkbox>
+                    <div>
+                      State: <strong>{{ row.item.is_active }}</strong>
+                    </div>
+                  </template>
                   <template v-slot:cell(actions)="row">
                     <b-button
                       :to="{
@@ -98,9 +111,9 @@ export default {
   //data function
   data() {
     return {
+      // data: { is_active: "Ya" },
       //table header
       fields: [
-
         {
           label: "Tahun Pelajaran",
           key: "tahun_pelajaran",
@@ -108,6 +121,7 @@ export default {
         {
           label: "Data Aktif",
           key: "is_active",
+          tdClass: "text-center",
         },
         {
           label: "Actions",

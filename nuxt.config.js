@@ -113,13 +113,7 @@ export default {
         },
       },
     },
-    // redirect: {
-    //   login: '/',
-    //   logout: '/',
-    //   dashboard: '/dashboard',
-    // }
   },
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
@@ -129,7 +123,6 @@ export default {
 
   ],
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // baseURL: 'http://localhost:8000',
     baseURL: 'https://api.ppdb.smktibazma.sch.id',

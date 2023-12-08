@@ -4,10 +4,17 @@
       <nuxt-link
         :to="{ name: 'dashboard' }"
         class="c-sidebar-nav-link"
-        href="index.html">
-        Dasbor</nuxt-link>
+        href="index.html"
+      >
+        Dasbor</nuxt-link
+      >
     </li>
     <LinkItem label="Chart Provinsi" to="/dashboard/chart-provinsi" />
+
+    <li class="c-sidebar-nav-title">Data Tahun</li>
+
+    <LinkItem label="Tahun Pelajaran" to="/tahun-pelajaran" />
+    <LinkItem label="Tahun Lulus" to="/tahun-lulus" />
 
     <li class="c-sidebar-nav-title">Data Peserta</li>
 
@@ -25,22 +32,10 @@
       label="Penerima Bantuan Sosial"
       to="/master/penerima-bantuan-sosial"
     />
-    <LinkItem
-      label="Kualitas Rumah"
-      to="/master/kualitas-rumah"
-    />
-    <LinkItem
-      label="Luas Tanah"
-      to="/master/luas-tanah"
-    />
-    <LinkItem
-      label="Harta Tidak Bergerak"
-      to="/master/harta-tidak-bergerak"
-    />
-    <LinkItem
-      label="Mandi Cuci Kakus"
-      to="/master/mandi-cuci-kakus"
-    />
+    <LinkItem label="Kualitas Rumah" to="/master/kualitas-rumah" />
+    <LinkItem label="Luas Tanah" to="/master/luas-tanah" />
+    <LinkItem label="Harta Tidak Bergerak" to="/master/harta-tidak-bergerak" />
+    <LinkItem label="Mandi Cuci Kakus" to="/master/mandi-cuci-kakus" />
     <LinkItem
       label="Kepemilikan Kendaraan"
       to="/master/kepemilikan-kendaraan"
@@ -64,12 +59,6 @@
       to="/status/kepemilikan-kendaraan"
     />
     <LinkItem label="Status Kepemilikan Rumah" to="/status/kepemilikan-rumah" />
-
-    <li class="c-sidebar-nav-title">Data Tahun</li>
-
-    <LinkItem label="Tahun Pelajaran" to="/tahun-pelajaran" />
-    <LinkItem label="Tahun Lulus" to="/tahun-lulus" />
-
 
     <li class="c-sidebar-nav-title">Data Informasi</li>
 

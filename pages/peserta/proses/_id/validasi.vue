@@ -64,6 +64,66 @@
                     ><b>Sekolah Menengah Pertama (SMP):</b>
                     {{ pesertaProses.smp_derajat }}</b-list-group-item
                   >
+                  <b-list-group-item
+                    ><b>Nomor Pokok Sekolah Nasional :</b>
+                    {{ pesertaProses.npsn }}</b-list-group-item
+                  >
+                  <b-list-group-item
+                    ><b>Tahun Lulus:</b>
+                    {{ pesertaProses.tahun_lulus }}</b-list-group-item
+                  >
+                  <b-list-group-item
+                    ><b>Anak dari Berapa Saudara:</b>
+                    {{ pesertaProses.anak_ke_sodara }}</b-list-group-item
+                  >
+                  <b-list-group-item
+                    ><b>Keadaan Orang Tua:</b>
+                    {{ pesertaProses.keadaan_orang_tua }}</b-list-group-item
+                  >
+                  <b-list-group-item
+                    ><b>Status Keluarga:</b>
+                    {{ pesertaProses.status_dalam_keluarga }}</b-list-group-item
+                  >
+                  <b-list-group-item
+                    ><b>Tinggal Bersama:</b>
+                    {{ pesertaProses.tinggal_bersama }}</b-list-group-item
+                  >
+                  <b-list-group-item
+                    ><b>Penerimaan Bantuan Sosial:</b>
+                    {{ pesertaProses.penerima_bantuan_sosial }}</b-list-group-item
+                  >
+                  <b-list-group-item
+                    ><b>Bahasa Asing:</b>
+                    {{ pesertaProses.bahasa_asing }}</b-list-group-item
+                  >
+                  <b-list-group-item
+                    ><b>Jumlah Hafalan Juz:</b>
+                    {{ pesertaProses.jumlah_hafalan_juz }}</b-list-group-item
+                  >
+                  <b-list-group-item
+                    ><b>Hafalan Juz:</b>
+                    {{ pesertaProses.hafalan_juz }}</b-list-group-item
+                  >
+                  <b-list-group-item
+                    ><b>Prestasi Peserta Didik (Riwayat):</b>
+                    {{ pesertaProses.riwayat_prestasi_calon_peserta_didik }}</b-list-group-item
+                  >
+                  <b-list-group-item
+                    ><b>Organisasi Peserta Didik (Riwayat):</b>
+                    {{ pesertaProses.riwayat_organisasi_sekolah_dan_non_sekolah }}</b-list-group-item
+                  >
+                  <b-list-group-item
+                    ><b>Hal-Hal Khusus:</b>
+                    {{ pesertaProses.hal_hal_khusus }}</b-list-group-item
+                  >
+                  <b-list-group-item
+                    ><b>Cita-Cita Peserta Didik:</b>
+                    {{ pesertaProses.cita_cita }}</b-list-group-item
+                  >
+                  <b-list-group-item
+                    ><b>Kegemaran Peserta Didik:</b>
+                    {{ pesertaProses.hobi_kegemaran }}</b-list-group-item
+                  >
                 </b-list-group>
               </div>
             </div>
@@ -662,9 +722,7 @@ export default {
   //meta
   head() {
     return {
-      title: this.pesertaProses.nama_lengkap
-        ? `${this.pesertaProses.nama_lengkap} - Dasbor Bazma`
-        : "Validasi Data - Dasbor Bazma",
+      title:"Validasi Data - Dasbor Bazma",
     };
   },
 

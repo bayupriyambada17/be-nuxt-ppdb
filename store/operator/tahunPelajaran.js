@@ -152,4 +152,29 @@ export const actions = {
 
   },
 
+  getPesertaByTahunPelajaran({ commit, state }, payload) {
+
+    //search
+    let search = payload ? payload : ''
+
+    //set promise
+    return new Promise((resolve, reject) => {
+
+      // this.$axios.get(`/api/v1/categories?q=${search}&page=${state.page}`)
+      this.$axios.get(`/api/v1/tahun-pelajaran?tahun_pelajaran=${search}&page=${state.page}`)
+
+        //success
+        .then((response) => {
+
+          //commit ti mutation "SET_TAHUN_PELAJARAN_DATA"
+          commit('SET_TAHUN_PELAJARAN_DATA', response.data.data)
+
+          //resolve promise
+          resolve()
+        })
+
+    })
+
+  },
+
 }
