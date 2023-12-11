@@ -43,11 +43,14 @@
                   </div>
 
                   <button class="btn btn-info mr-1 btn-submit" type="submit">
-                    <i class="fa fa-paper-plane"></i> UPDATE
+                    Perbaharui
                   </button>
-                  <button class="btn btn-warning btn-reset" type="reset">
-                    <i class="fa fa-redo"></i> RESET
-                  </button>
+                  <nuxt-link
+                    :to="{ name: 'tahun-pelajaran' }"
+                    class="btn btn-warning"
+                  >
+                    Kembali</nuxt-link
+                  >
                 </form>
               </div>
             </div>
@@ -92,8 +95,10 @@ export default {
 
   //mounted
   mounted() {
-    this.data.tahun_pelajaran =this.$store.state.operator.tahunPelajaran.tahunPelajaran.tahun_pelajaran;
-    this.data.is_active =this.$store.state.operator.tahunPelajaran.tahunPelajaran.is_active;
+    this.data.tahun_pelajaran =
+      this.$store.state.operator.tahunPelajaran.tahunPelajaran.tahun_pelajaran;
+    this.data.is_active =
+      this.$store.state.operator.tahunPelajaran.tahunPelajaran.is_active;
   },
 
   //method
@@ -101,9 +106,8 @@ export default {
     //method "updateData"
     async updateData() {
       //define formData
-       const is_active_value = this.data.is_active === 'Ya' ? 1 : 0;
+      const is_active_value = this.data.is_active === "Ya" ? 1 : 0;
       let formData = new FormData();
-
 
       formData.append("tahun_pelajaran", this.data.tahun_pelajaran);
       formData.append("is_active", is_active_value);

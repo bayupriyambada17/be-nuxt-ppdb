@@ -13,15 +13,6 @@
               <div class="card-body">
                 <div class="form-group">
                   <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <nuxt-link
-                        :to="{ name: 'tahun-pelajaran-create' }"
-                        class="btn btn-warning btn-sm"
-                        style="padding-top: 10px"
-                      >
-                        <i class="fa fa-plus-circle"></i> Tambah Data</nuxt-link
-                      >
-                    </div>
                     <input
                       type="text"
                       v-model="search"
@@ -29,49 +20,25 @@
                       class="form-control"
                       placeholder="cari berdasarkan tahun"
                     />
-                    <div class="input-group-append">
-                      <button @click="searchData" class="btn btn-warning">
-                        <i class="fa fa-search"></i>SEARCH
-                      </button>
-                    </div>
                   </div>
                 </div>
-
                 <b-table
                   striped
                   bordered
                   hover
-                  :items="tahunPelajaran"
+                  :items="pesertaDidikTahunPelajaran"
                   :fields="fields"
                   show-empty
+                  responsive
                 >
                   <template v-slot:cell(actions)="row">
                     <b-button
-                      :to="{
-                        name: 'tahun-pelajaran-id-data-peserta',
-                        params: { id: row.item.id },
-                      }"
+                      :to="`/tahun-pelajaran/${row.item.id}/data-peserta`"
                       variant="info"
                       size="sm"
                     >
-                      Lihat Peserta
+                      Detail Peserta
                     </b-button>
-                    <b-button
-                      :to="{
-                        name: 'tahun-pelajaran-edit-id',
-                        params: { id: row.item.id },
-                      }"
-                      variant="warning"
-                      size="sm"
-                    >
-                      Ubah
-                    </b-button>
-                    <b-button
-                      variant="danger"
-                      size="sm"
-                      @click="destroy(row.item.id)"
-                      >Hapus</b-button
-                    >
                   </template>
                 </b-table>
               </div>
@@ -91,26 +58,34 @@ export default {
   //meta
   head() {
     return {
-      title: "Tahun Pelajaran - Dasbor Bazma",
+      title: `${this.pesertaDidikTahunPelajaran} - Dasbor Bazma`,
     };
   },
 
-  //data function
   data() {
     return {
-      //table header
+      data: {
+        tahunPelajaran: ""
+      },
       fields: [
-
         {
-          label: "Tahun Pelajaran",
-          key: "tahun_pelajaran",
+          label: "No",
+          key: "index",
         },
         {
-          label: "Data Aktif",
-          key: "is_active",
+          label: "Nomor Pendaftar",
+          key: "nomor_pendaftar",
         },
         {
-          label: "Actions",
+          label: "Nama Lengkap",
+          key: "nama_lengkap",
+        },
+        {
+          label: "Provinsi",
+          key: "provinsi",
+        },
+        {
+          label: "",
           key: "actions",
           tdClass: "text-center",
         },
@@ -118,66 +93,24 @@ export default {
 
       search: "",
 
-      dataTitle: "Tahun Pelajaran",
+      dataTitle: "Data Peserta",
     };
   },
-
-  //hook "asyncData"
-  async asyncData({ store }) {
-    await store.dispatch("operator/tahunPelajaran/getTahunPelajaranData");
+  async asyncData({ store, route }) {
+    await store.dispatch("operator/tahunPelajaran/getPesertaByTahunPelajaran",
+    route.params.id);
   },
 
-  //computed
   computed: {
-    tahunPelajaran() {
-      // return
-      return this.$store.state.operator.tahunPelajaran.tahunPelajaran;
+    pesertaDidikTahunPelajaran() {
+      return this.$store.state.operator.tahunPelajaran.pesertaDidikTahunPelajaran;
     },
   },
-
-  methods: {
-    searchData() {
-      this.$store.commit("operator/tahunPelajaran/SET_PAGE", 1);
-
-      this.$store.dispatch(
-        "operator/tahunPelajaran/getTahunPelajaranData",
-        this.search
-      );
-    },
-
-    destroy(id) {
-      this.$swal
-        .fire({
-          title: "APAKAH ANDA YAKIN ?",
-          text: "INGIN MENGHAPUS DATA INI !",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#d33",
-          cancelButtonColor: "#3085d6",
-          confirmButtonText: "YA, HAPUS!",
-          cancelButtonText: "TIDAK",
-        })
-        .then((result) => {
-          if (result.isConfirmed) {
-            this.$store
-              .dispatch("operator/tahunPelajaran/destroyTahunPelajaran", id)
-              .then(() => {
-                //feresh data
-                this.$nuxt.refresh();
-
-                //alert
-                this.$swal.fire({
-                  title: "BERHASIL!",
-                  text: "Data Berhasil Dihapus!",
-                  icon: "success",
-                  showConfirmButton: false,
-                  timer: 2000,
-                });
-              });
-          }
-        });
-    },
-  },
+  //  //mounted
+  // mounted() {
+  //   this.data.tahunPelajaran =
+  //     this.$store.state.operator.tahunPelajaran.pesertaDidikTahunPelajaran.tahun_pelajaran;
+  // },
 };
 </script>
 

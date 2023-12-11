@@ -4,7 +4,7 @@
       <nuxt-link
         :to="{ name: 'dashboard' }"
         class="c-sidebar-nav-link"
-        href="index.html"
+        to="/dashboard"
       >
         Dasbor</nuxt-link
       >

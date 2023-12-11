@@ -87,28 +87,11 @@
                   :items="pesertaHari.validasi"
                   :fields="fields"
                   show-empty
+                  responsive
                 >
                   <template v-slot:cell(index)="row">
                     {{ getIndex(row.index) }}
                   </template>
-                  <!-- <template v-slot:cell(actions)="row">
-                    <b-button
-                      :to="{
-                        name: 'master-keadaan-orang-tua-edit-id',
-                        params: { id: row.item.id },
-                      }"
-                      variant="warning"
-                      size="sm"
-                    >
-                      Ubah
-                    </b-button>
-                    <b-button
-                      variant="danger"
-                      size="sm"
-                      @click="destroy(row.item)"
-                      >Hapus</b-button
-                    >
-                  </template> -->
                 </b-table>
               </div>
             </div>

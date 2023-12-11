@@ -1,24 +1,29 @@
 //state
 export const state = () => ({
 
-  //categories
   tahunPelajaran: [],
 
   //page
   page: 1,
 
-  tahunPelajaran: {}
+  tahunPelajaran: {},
+  pesertaDidikTahunPelajaran: [],
 
 })
 
 //mutations
 export const mutations = {
 
-  //mutation "SET_CATEGORIES_DATA"
   SET_TAHUN_PELAJARAN_DATA(state, payload) {
 
     //set value state "categories"
     state.tahunPelajaran = payload
+  },
+
+  SET_TAHUN_PELAJARAN_PESERTA_DATA(state, payload) {
+
+    //set value state "categories"
+    state.pesertaDidikTahunPelajaran = payload
   },
 
   //mutation "SET_PAGE"
@@ -28,10 +33,6 @@ export const mutations = {
     state.page = payload
   },
 
-  SET_TAHUN_PELAJARAN_DATA(state, payload) {
-    state.tahunPelajaran = payload
-
-  }
 
 }
 
@@ -154,22 +155,11 @@ export const actions = {
 
   getPesertaByTahunPelajaran({ commit, state }, payload) {
 
-    //search
     let search = payload ? payload : ''
-
-    //set promise
     return new Promise((resolve, reject) => {
-
-      // this.$axios.get(`/api/v1/categories?q=${search}&page=${state.page}`)
-      this.$axios.get(`/api/v1/tahun-pelajaran?tahun_pelajaran=${search}&page=${state.page}`)
-
-        //success
+      this.$axios.get(`/api/v1/tahun-pelajaran/${payload}/peserta?page=${state.page}`)
         .then((response) => {
-
-          //commit ti mutation "SET_TAHUN_PELAJARAN_DATA"
-          commit('SET_TAHUN_PELAJARAN_DATA', response.data.data)
-
-          //resolve promise
+          commit('SET_TAHUN_PELAJARAN_PESERTA_DATA', response.data.data.peserta)
           resolve()
         })
 

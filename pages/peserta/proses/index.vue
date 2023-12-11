@@ -14,17 +14,6 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="form-group">
-                  <div class="input-group mb-3">
-                     <input
-                      type="text"
-                      v-model="search"
-                      @keypress.enter="searchData"
-                      class="form-control"
-                      :placeholder="'Cari berdasarkan ' + dataTitle"
-                    />
-                  </div>
-                </div>
 
                 <b-table
                   striped
@@ -33,6 +22,7 @@
                   :items="pesertaProses"
                   :fields="fields"
                   show-empty
+                  responsive
                 >
                 <template v-slot:cell(actions)="row">
                     <b-button

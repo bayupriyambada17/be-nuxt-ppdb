@@ -28,7 +28,7 @@
                   </div>
 
                   <button class="btn btn-info mr-1 btn-submit" type="submit">
-                    <i class="fa fa-paper-plane"></i> UPDATE
+                   Perbaharui
                   </button>
                   <button class="btn btn-warning btn-reset" type="reset">
                     <i class="fa fa-redo"></i> RESET

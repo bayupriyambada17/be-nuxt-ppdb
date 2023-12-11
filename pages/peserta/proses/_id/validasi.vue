@@ -7,7 +7,7 @@
             <div class="d-flex justify-content-end align-items-center g-1">
               <button
                 @click="terimaPeserta(pesertaProses.id)"
-                class="btn btn-md btn-warning mx-1"
+                class="btn btn-md btn-success mx-1"
               >
                 Terima Peserta
               </button>
@@ -745,7 +745,6 @@ export default {
   },
 
   methods: {
-
     async terimaPeserta(id) {
       const confirmationResult = await this.$swal.fire({
         title: `Ingin menerima peserta Didik ini?`,

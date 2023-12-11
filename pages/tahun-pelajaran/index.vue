@@ -17,12 +17,11 @@
                       <nuxt-link
                         :to="{ name: 'tahun-pelajaran-create' }"
                         class="btn btn-warning btn-sm"
-                        style="padding-top: 10px"
                       >
-                        <i class="fa fa-plus-circle"></i> Tambah Data</nuxt-link
+                        Tambah Data</nuxt-link
                       >
                     </div>
-                    <input
+                    <!-- <input
                       type="text"
                       v-model="search"
                       @keypress.enter="searchData"
@@ -33,7 +32,7 @@
                       <button @click="searchData" class="btn btn-warning">
                         <i class="fa fa-search"></i>SEARCH
                       </button>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
 
@@ -45,20 +44,17 @@
                   :fields="fields"
                   show-empty
                 >
-                  <template v-slot:cell(is_active)="row">
-                    <b-form-checkbox
-                      id="checkbox-1"
-                      name="checkbox-1"
-                      :model="row.item.is_active === 1"
-                      true-value="1"
-                      false-value="0"
-                    >
-                    </b-form-checkbox>
-                    <div>
-                      State: <strong>{{ row.item.is_active }}</strong>
-                    </div>
-                  </template>
                   <template v-slot:cell(actions)="row">
+                    <b-button
+                      :to="{
+                        name: 'tahun-pelajaran-id-data-peserta',
+                        params: { id: row.item.id },
+                      }"
+                      variant="success"
+                      size="sm"
+                    >
+                      Unduh Excel
+                    </b-button>
                     <b-button
                       :to="{
                         name: 'tahun-pelajaran-id-data-peserta',
@@ -111,7 +107,6 @@ export default {
   //data function
   data() {
     return {
-      // data: { is_active: "Ya" },
       //table header
       fields: [
         {
@@ -119,14 +114,15 @@ export default {
           key: "tahun_pelajaran",
         },
         {
-          label: "Data Aktif",
+          label: "Tahun Aktif",
           key: "is_active",
           tdClass: "text-center",
         },
         {
-          label: "Actions",
+          label: "",
           key: "actions",
           tdClass: "text-center",
+          colspan:"2"
         },
       ],
 
@@ -150,15 +146,6 @@ export default {
   },
 
   methods: {
-    searchData() {
-      this.$store.commit("operator/tahunPelajaran/SET_PAGE", 1);
-
-      this.$store.dispatch(
-        "operator/tahunPelajaran/getTahunPelajaranData",
-        this.search
-      );
-    },
-
     destroy(id) {
       this.$swal
         .fire({

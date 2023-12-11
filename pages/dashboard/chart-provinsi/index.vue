@@ -2,20 +2,9 @@
   <main class="c-main">
     <div class="container-fluid">
       <div class="fade-in">
-        <div class="row" v-for="(chartData, index) in charts.data" :key="index">
-          <div class="col-md-6">
-            <div class="card border-0 rounded shadow-sm border-top-orange">
-              <div class="card-header">
-                <span class="font-weight-bold">
-                  <i class="fa fa-chart-line"></i> GRAFIK PENDAPATAN {{ chartData.tahun_pelajaran }}
-                </span>
-              </div>
-              <div class="card-body">
-                <client-only>
-                  <line-chart :data="prepareChartData(chartData.provinsi)"></line-chart>
-                </client-only>
-              </div>
-            </div>
+        <div class="card">
+          <div class="card-body">
+            <Chart :chartData="chartData" :chartOptions="chartOptions" />
           </div>
         </div>
       </div>
@@ -24,42 +13,43 @@
 </template>
 
 <script>
+import Chart from "~/components/Chart.vue"
+
 export default {
+  components: {
+    Chart,
+  },
+
   layout: "operator",
+
   head() {
     return {
       title: "Dashboard - Dasbor Bazma",
     };
   },
+
+  data() {
+    return {
+      chartData: {}, // Provide valid data
+      chartOptions: {}, // Provide valid options
+    };
+  },
+
   async asyncData({ $axios }) {
     const charts = await $axios.$get("/api/v1/dashboard/per-provinsi");
     console.log(charts);
-
-    return { charts };
+    return { chartData: charts }; // Use the correct variable name
   },
-  methods: {
-    prepareChartData(provinsiData) {
-      const labels = Object.keys(provinsiData);
-      const data = Object.values(provinsiData);
 
+  computed: {
+    chartOptions() {
+      // Sesuaikan dengan opsi chart jika diperlukan
       return {
-        labels: labels,
-        datasets: [
-          {
-            label: "Jumlah Peserta",
-            borderColor: "rgba(75,192,192,1)",
-            pointBorderColor: "rgba(75,192,192,1)",
-            pointBackgroundColor: "#fff",
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10,
-            data: data,
+        scales: {
+          y: {
+            beginAtZero: true,
           },
-        ],
+        },
       };
     },
   },
