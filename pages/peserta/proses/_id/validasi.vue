@@ -719,10 +719,9 @@ export default {
   components: {
     ButtonFileItem,
   },
-  //meta
   head() {
     return {
-      title:"Validasi Data - Dasbor Bazma",
+      title:"Validasi Data Proses - Dasbor Bazma",
     };
   },
 

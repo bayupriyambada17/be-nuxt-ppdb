@@ -1,15 +1,12 @@
 <template>
   <ul class="c-sidebar-nav">
-    <li class="c-sidebar-nav-item">
-      <nuxt-link
-        :to="{ name: 'dashboard' }"
-        class="c-sidebar-nav-link"
-        to="/dashboard"
-      >
-        Dasbor</nuxt-link
-      >
+    <li class="c-sidebar-nav-item" >
+      <nuxt-link :to="{ name: 'dashboard' }" class="c-sidebar-nav-link" to="/dashboard">
+        Dasbor
+      </nuxt-link>
     </li>
-    <LinkItem label="Chart Provinsi" to="/dashboard/chart-provinsi" />
+    <LinkItem label="Chart Provinsi" to="/dashboard/chart-provinsi" :active="isActive('dashboard-chart-provinsi')" />
+    <LinkItem label="Monitoring Data" to="/dashboard/monitoring" :active="isActive('dashboard-monitoring')"/>
 
     <li class="c-sidebar-nav-title">Data Tahun</li>
 
@@ -75,7 +72,14 @@ export default {
   components: {
     LinkItem,
   },
+
+  methods: {
+    isActive(routeName) {
+      return this.$route.name === routeName;
+    },
+  }
 };
+
 </script>
 
 <style scoped>

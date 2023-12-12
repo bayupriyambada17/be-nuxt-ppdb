@@ -22,14 +22,12 @@ export const mutations = {
 
   SET_TAHUN_PELAJARAN_PESERTA_DATA(state, payload) {
 
-    //set value state "categories"
     state.pesertaDidikTahunPelajaran = payload
   },
 
   //mutation "SET_PAGE"
   SET_PAGE(state, payload) {
 
-    //set value state "page"
     state.page = payload
   },
 
@@ -159,7 +157,7 @@ export const actions = {
     return new Promise((resolve, reject) => {
       this.$axios.get(`/api/v1/tahun-pelajaran/${payload}/peserta?page=${state.page}`)
         .then((response) => {
-          commit('SET_TAHUN_PELAJARAN_PESERTA_DATA', response.data.data.peserta)
+          commit('SET_TAHUN_PELAJARAN_PESERTA_DATA', response.data.data)
           resolve()
         })
 

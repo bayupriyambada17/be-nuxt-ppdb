@@ -6,50 +6,48 @@
           <div class="col-md-12">
             <div class="card border-0 rounded shadow-sm border-top-orange">
               <div class="card-header">
-                <span class="font-weight-bold"
-                  ><i class="fa fa-folder"></i> {{ dataTitle }}</span
-                >
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="font-weight-bold"
+                    ><i class="fa fa-folder"></i> {{ dataTitle }}</span
+                  >
+                  <button class="btn btn-sm btn-warning">Download Data</button>
+                </div>
               </div>
               <div class="card-body">
-                <div class="form-group">
-                  <div class="input-group mb-3">
-
-                     <input
-                      type="text"
-                      v-model="search"
-                      @keypress.enter="searchData"
-                      class="form-control"
-                      :placeholder="'Cari berdasarkan ' + dataTitle"
-                    />
-                    <!-- <div class="input-group-append">
-                      <button @click="searchData" class="btn btn-warning">
-                        <i class="fa fa-search"></i>SEARCH
-                      </button>
-                    </div> -->
-                  </div>
-                </div>
-
                 <b-table
                   striped
                   bordered
                   hover
-                  :items="provinsi"
+                  :items="peserta.data"
                   :fields="fields"
                   show-empty
+                  responsive
                 >
-                <template v-slot:cell(actions)="row">
+                  <template v-slot:cell(index)="row">
+                    {{ getIndex(row.index) }}
+                  </template>
+
+                  <!-- <template v-slot:cell(actions)="row">
                     <b-button
                       :to="{
-                        name: 'provinsi-edit-id',
+                        name: 'peserta-proses-id-validasi',
                         params: { id: row.item.id },
                       }"
                       variant="warning"
                       size="sm"
                     >
-                      Ubah
+                      Validasi Peserta
                     </b-button>
-                  </template>
+                  </template> -->
                 </b-table>
+                <b-pagination
+                  align="right"
+                  :value="peserta.current_page"
+                  :total-rows="peserta.total"
+                  :per-page="peserta.per_page"
+                  @change="changePage"
+                  aria-controls="my-table"
+                ></b-pagination>
               </div>
             </div>
           </div>
@@ -71,10 +69,8 @@ export default {
     };
   },
 
-  //data function
   data() {
     return {
-      //table header
       fields: [
         {
           label: "#",
@@ -97,28 +93,24 @@ export default {
           label: "Tanggal Terdaftar",
           key: "tanggal_terdaftar",
         },
-        {
-          label: "Cek Peserta Didik",
-          key: "is_pendaftar",
-          tdClass: "text-center fw-bold",
-        },
+        // {
+        //   label: "",
+        //   key: "actions",
+        //   tdClass: "text-center",
+        // },
       ],
       search: "",
-      dataTitle: "Peserta ditolak",
+      dataTitle: "Peserta Ditolak",
     };
   },
 
-  //hook "asyncData"
   async asyncData({ store }) {
     await store.dispatch("operator/peserta/ditolak/getAllDataState");
   },
 
-  //computed
   computed: {
-    provinsi() {
-      return this.$store.state.operator.peserta.ditolak.ditolak.map((item, index) => {
-        return { ...item, index: index + 1 };
-      });
+    peserta() {
+      return this.$store.state.operator.peserta.ditolak.ditolak;
     },
   },
 
@@ -126,21 +118,33 @@ export default {
   //   search(newSearchValue) {
   //     this.$store.commit("operator/dayaListrik/SET_PAGE", 1);
   //     this.$store.dispatch(
-  //       "operator/provinsi/getAllDataState",
+  //       "operator/pesertaProses/getAllDataState",
   //       newSearchValue
   //     );
   //   },
   // },
 
   methods: {
+    getIndex(index) {
+      return index + 1;
+    },
     // searchData() {
-    //   this.$store.commit("operator/provinsi/SET_PAGE", 1);
+    //   this.$store.commit("operator/pesertaProses/SET_PAGE", 1);
     //   this.$store.dispatch(
-    //     "operator/provinsi/getAllDataState",
+    //     "operator/pesertaProses/getAllDataState",
     //     this.search
     //   );
     // },
-  }
+
+    changePage(page) {
+      this.$store.commit("operator/peserta/ditolak/SET_PAGE", page);
+
+      this.$store.dispatch(
+        "operator/peserta/ditolak/getAllDataState",
+        this.search
+      );
+    },
+  },
 };
 </script>
 

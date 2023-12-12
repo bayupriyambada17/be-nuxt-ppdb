@@ -57,7 +57,7 @@
                     </b-button>
                     <b-button
                       :to="{
-                        name: 'tahun-pelajaran-id-data-peserta',
+                        name: 'tahun-pelajaran-id-peserta',
                         params: { id: row.item.id },
                       }"
                       variant="info"

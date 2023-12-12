@@ -35,23 +35,36 @@
                   striped
                   bordered
                   hover
-                  :items="provinsi"
+                  :items="pesertaDiterima.data"
                   :fields="fields"
                   show-empty
+                  responsive
                 >
+                  <template v-slot:cell(index)="row">
+                    {{ getIndex(row.index) }}
+                  </template>
                   <template v-slot:cell(actions)="row">
-                    <b-button
+                    <!-- <b-button
                       :to="{
-                        name: 'provinsi-edit-id',
+                        name: 'pesertaDiterima-edit-id',
                         params: { id: row.item.id },
                       }"
                       variant="warning"
                       size="sm"
                     >
                       Ubah
-                    </b-button>
+                    </b-button> -->
                   </template>
                 </b-table>
+
+                <b-pagination
+                  align="right"
+                  :value="pesertaDiterima.current_page"
+                  :total-rows="pesertaDiterima.total"
+                  :per-page="pesertaDiterima.per_page"
+                  @change="changePage"
+                  aria-controls="my-table"
+                ></b-pagination>
               </div>
             </div>
           </div>
@@ -99,11 +112,7 @@ export default {
           label: "Tanggal Terdaftar",
           key: "tanggal_terdaftar",
         },
-        {
-          label: "Status Proses",
-          key: "is_pendaftar",
-          tdClass: "text-center fw-bold",
-        },
+
       ],
       search: "",
       dataTitle: "Peserta Diterima",
@@ -117,12 +126,8 @@ export default {
 
   //computed
   computed: {
-    provinsi() {
-      return this.$store.state.operator.peserta.diterima.diterima.map(
-        (item, index) => {
-          return { ...item, index: index + 1 };
-        }
-      );
+    pesertaDiterima() {
+      return this.$store.state.operator.peserta.diterima.diterima;
     },
   },
 
@@ -130,47 +135,47 @@ export default {
   //   search(newSearchValue) {
   //     this.$store.commit("operator/dayaListrik/SET_PAGE", 1);
   //     this.$store.dispatch(
-  //       "operator/provinsi/getAllDataState",
+  //       "operator/pesertaDiterima/getAllDataState",
   //       newSearchValue
   //     );
   //   },
   // },
 
   methods: {
+    getIndex(index) {
+      return index + 1;
+    },
     async pesertaDiterimaExport() {
       try {
         const response = await this.$axios.post(
           "/api/v1/peserta/diterima-export",
           {
             responseType: "blob",
-            'content-type': "application/json"
+            "content-type": "application/json",
           }
         );
 
         if (response.data instanceof Blob) {
-          // Create a Blob URL
           const blobUrl = URL.createObjectURL(response.data);
 
-          // Create a link element and trigger a click to download the file
-          const link = document.createElement('a');
+          const link = document.createElement("a");
           link.href = blobUrl;
-          link.download = 'exported_data.xlsx';
+          link.download = "exported_data.xlsx";
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
         }
       } catch (error) {
         console.error("Error exporting data:", error);
-        // Handle error
       }
     },
-    // searchData() {
-    //   this.$store.commit("operator/provinsi/SET_PAGE", 1);
-    //   this.$store.dispatch(
-    //     "operator/provinsi/getAllDataState",
-    //     this.search
-    //   );
-    // },
+
+    changePage(page) {
+      //commit to mutation "SET_PAGE"
+      this.$store.commit("operator/peserta/diterima/SET_PAGE", page);
+
+      this.$store.dispatch("operator/peserta/diterima/getAllDataState", this.search);
+    },
   },
 };
 </script>

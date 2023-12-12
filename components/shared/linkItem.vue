@@ -1,5 +1,5 @@
 <template>
-  <li class="c-sidebar-nav-item">
+  <li class="c-sidebar-nav-item" :class="{ 'c-active': isActive }">
     <router-link :to="to" class="c-sidebar-nav-link">
       {{ label }}
     </router-link>
@@ -18,9 +18,16 @@ export default {
       required: true,
     },
   },
+  computed: {
+    isActive() {
+      return this.$route.fullPath === this.to;
+    },
+  },
 };
 </script>
 
 <style scoped>
-/* Gaya khusus komponen ini jika diperlukan */
+.c-active {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
 </style>

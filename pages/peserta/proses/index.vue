@@ -14,17 +14,19 @@
                 </div>
               </div>
               <div class="card-body">
-
                 <b-table
                   striped
                   bordered
                   hover
-                  :items="pesertaProses"
+                  :items="peserta.data"
                   :fields="fields"
                   show-empty
                   responsive
                 >
-                <template v-slot:cell(actions)="row">
+                  <template v-slot:cell(index)="row">
+                    {{ getIndex(row.index) }}
+                  </template>
+                  <template v-slot:cell(actions)="row">
                     <b-button
                       :to="{
                         name: 'peserta-proses-id-validasi',
@@ -37,6 +39,14 @@
                     </b-button>
                   </template>
                 </b-table>
+                <b-pagination
+                  align="right"
+                  :value="peserta.current_page"
+                  :total-rows="peserta.total"
+                  :per-page="peserta.per_page"
+                  @change="changePage"
+                  aria-controls="my-table"
+                ></b-pagination>
               </div>
             </div>
           </div>
@@ -102,10 +112,8 @@ export default {
 
   //computed
   computed: {
-    pesertaProses() {
-      return this.$store.state.operator.peserta.proses.proses.map((item, index) => {
-        return { ...item, index: index + 1 };
-      });
+    peserta() {
+      return this.$store.state.operator.peserta.proses.proses;
     },
   },
 
@@ -120,6 +128,9 @@ export default {
   // },
 
   methods: {
+    getIndex(index) {
+      return index + 1;
+    },
     // searchData() {
     //   this.$store.commit("operator/pesertaProses/SET_PAGE", 1);
     //   this.$store.dispatch(
@@ -127,7 +138,15 @@ export default {
     //     this.search
     //   );
     // },
-  }
+    changePage(page) {
+      this.$store.commit("operator/peserta/proses/SET_PAGE", page);
+
+      this.$store.dispatch(
+        "operator/peserta/proses/getAllDataState",
+        this.search
+      );
+    },
+  },
 };
 </script>
 

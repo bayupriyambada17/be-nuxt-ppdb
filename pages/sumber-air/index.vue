@@ -144,7 +144,6 @@ export default {
 
   methods: {
     getIndex(index) {
-      // Menghitung indeks dengan menambahkan 1
       return index + 1;
     },
 

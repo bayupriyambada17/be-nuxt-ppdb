@@ -134,7 +134,6 @@ export default {
     dayaListrik() {
       const dayaListrikData = this.$store.state.operator.dayaListrik.dayaListrik;
 
-      // Pastikan dayaListrikData adalah array sebelum menghitung indeks
       if (Array.isArray(dayaListrikData)) {
         return dayaListrikData;
       } else {
@@ -145,7 +144,6 @@ export default {
 
   methods: {
     getIndex(index) {
-      // Menghitung indeks dengan menambahkan 1
       return index + 1;
     },
 
