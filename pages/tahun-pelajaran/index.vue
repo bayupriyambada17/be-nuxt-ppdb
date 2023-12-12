@@ -73,7 +73,7 @@
                       variant="warning"
                       size="sm"
                     >
-                      Ubah
+                      <i class="cil-eye"></i> Ubah
                     </b-button>
                     <b-button
                       variant="danger"

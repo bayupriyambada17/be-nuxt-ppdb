@@ -52,13 +52,7 @@
                     {{ getIndex(row.index) }}
                   </template>
                   <template v-slot:cell(actions)="row">
-                    <!-- <b-button
-                      :to="`/tahun-pelajaran/${row.item.id}/peserta/${row.item.nama_lengkap}/detail`"
-                      variant="info"
-                      size="sm"
-                    >
-                      Detail Peserta
-                    </b-button> -->
+
                   </template>
                 </b-table>
               </div>

@@ -76,20 +76,16 @@
 
 <script>
 export default {
-  //layout
   layout: "operator",
 
-  //meta
   head() {
     return {
       title: `${this.dataTitle} - Dasbor Bazma`,
     };
   },
 
-  //data function
   data() {
     return {
-      //table header
       fields: [
         {
           label: "#",
@@ -119,7 +115,6 @@ export default {
     };
   },
 
-  //hook "asyncData"
   async asyncData({ store }) {
     await store.dispatch("operator/peserta/diterima/getAllDataState");
   },
@@ -171,7 +166,6 @@ export default {
     },
 
     changePage(page) {
-      //commit to mutation "SET_PAGE"
       this.$store.commit("operator/peserta/diterima/SET_PAGE", page);
 
       this.$store.dispatch("operator/peserta/diterima/getAllDataState", this.search);

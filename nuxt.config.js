@@ -1,17 +1,14 @@
 export default {
 
-  // Target Deployment
   target: 'server',
 
-  //rendering mode SSR
   ssr: true,
 
   loading: {
-    color: 'white',	// <-- color
-    height: '5px'	// <-- height
+    color: 'white',
+    height: '5px'
   },
 
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Dasbor Bazma',
     htmlAttrs: {
@@ -44,24 +41,20 @@ export default {
     ]
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/css/style.css',
     '@/assets/css/custom.css',
   ],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '~/plugins/chart.js', mode: 'client' },
 
   ],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    '@nuxtjs/pwa',	// <-- register PWA
+    '@nuxtjs/pwa',
 
   ],
   pwa: {
@@ -89,7 +82,7 @@ export default {
           property: 'token',
           required: true,
           type: 'Bearer',
-          expires_in: 60 * 60 * 24 * 7
+          expires_in: '7d'
         },
         user: {
           property: 'user',
@@ -130,7 +123,6 @@ export default {
 
   },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     babel: {
       compact: true,
