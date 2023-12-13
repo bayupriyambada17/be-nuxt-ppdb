@@ -35,10 +35,7 @@ export default {
               name: "Data Monitoring",
               link: "/dashboard/monitoring",
             },
-            {
-              name: "Peserta Didik (Ditolak)",
-              link: "/peserta/ditolak",
-            },
+
           ],
         },
         {
@@ -57,6 +54,10 @@ export default {
         {
           title: "Data Peserta",
           menu: [
+            {
+              name: "Peserta Didik (Proses)",
+              link: "/peserta/proses",
+            },
             {
               name: "Peserta Didik (Terima)",
               link: "/peserta/diterima",

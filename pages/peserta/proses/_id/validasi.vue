@@ -22,8 +22,8 @@
           <div class="col-md-12 mt-3">
             <div class="card border-0 rounded shadow-sm border-top-orange">
               <div class="card-header">
-                <span class="font-weight-bold"
-                  ><i class="fa fa-folder"></i> Nomor Peserta:
+                <span class="font-weight-bold">
+                  <i class="fa fa-folder"></i> Nomor Peserta:
                   {{ pesertaProses.nomor_pendaftaran }} -
                   {{ pesertaProses.tahun_pelajaran }}
                 </span>
@@ -90,7 +90,9 @@
                   >
                   <b-list-group-item
                     ><b>Penerimaan Bantuan Sosial:</b>
-                    {{ pesertaProses.penerima_bantuan_sosial }}</b-list-group-item
+                    {{
+                      pesertaProses.penerima_bantuan_sosial
+                    }}</b-list-group-item
                   >
                   <b-list-group-item
                     ><b>Bahasa Asing:</b>
@@ -106,11 +108,15 @@
                   >
                   <b-list-group-item
                     ><b>Prestasi Peserta Didik (Riwayat):</b>
-                    {{ pesertaProses.riwayat_prestasi_calon_peserta_didik }}</b-list-group-item
+                    {{
+                      pesertaProses.riwayat_prestasi_calon_peserta_didik
+                    }}</b-list-group-item
                   >
                   <b-list-group-item
                     ><b>Organisasi Peserta Didik (Riwayat):</b>
-                    {{ pesertaProses.riwayat_organisasi_sekolah_dan_non_sekolah }}</b-list-group-item
+                    {{
+                      pesertaProses.riwayat_organisasi_sekolah_dan_non_sekolah
+                    }}</b-list-group-item
                   >
                   <b-list-group-item
                     ><b>Hal-Hal Khusus:</b>
@@ -238,7 +244,7 @@
                     >
                       <span class="font-weight-bold"
                         ><i class="fa fa-folder"></i> Data Fasilitas,
-                        Fasilitator</span
+                        Fasilitator, Riwayat.</span
                       >
                     </div>
                   </div>
@@ -380,6 +386,44 @@
                           <th>Asuransi</th>
                           <td class="text-center">
                             {{ pesertaProses.riwayat.asuransi_bpjs_kis }}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 mt-3">
+                <div class="card border-0 rounded shadow-sm border-top-orange">
+                  <div class="card-header">
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                    >
+                      <span class="font-weight-bold"
+                        ><i class="fa fa-folder"></i> Data Peraturan</span>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <th>Mengikuti Rangkaian Tes</th>
+                          <td class="text-center">
+                            {{
+                              pesertaProses.dokumen.rangkaian_tes
+                            }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Dokumen Palsu</th>
+                          <td class="text-center">
+                            {{ pesertaProses.dokumen.dokumen_jika_palsu }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Pelanggaran Keputusan</th>
+                          <td class="text-center">
+                            {{ pesertaProses.dokumen.pelanggaran_keputusan }}
                           </td>
                         </tr>
                       </tbody>
@@ -657,7 +701,9 @@
                                 pesertaProses.dokumen &&
                                 pesertaProses.dokumen.upload_pdf_foto_rumah
                               "
-                              :links="pesertaProses.dokumen.upload_pdf_foto_rumah"
+                              :links="
+                                pesertaProses.dokumen.upload_pdf_foto_rumah
+                              "
                             />
                           </td>
                         </tr>
@@ -713,7 +759,7 @@
 </template>
 
 <script>
-import ButtonFileItem from '~/components/shared/ButtonFileItem.vue';
+import ButtonFileItem from "~/components/shared/ButtonFileItem.vue";
 export default {
   layout: "operator",
   components: {
@@ -721,12 +767,13 @@ export default {
   },
   head() {
     return {
-      title:"Validasi Data Proses - Dasbor Bazma",
+      title: "Validasi Data Proses - Dasbor Bazma",
     };
   },
 
   data() {
     return {
+      isOnline: "Online",
       pesertaProses: {},
       dataTitle: "Validasi Data",
     };
