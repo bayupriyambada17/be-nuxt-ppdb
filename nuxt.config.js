@@ -21,19 +21,19 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-    //   {
-    //   rel: 'icon',
-    //   type: 'image/x-icon',
-    //   href: '/images/logo.png'
-    // },
-    {
-      rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap'
-    },
-    {
-      rel: 'stylesheet',
-      href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'
-    },
+      //   {
+      //   rel: 'icon',
+      //   type: 'image/x-icon',
+      //   href: '/images/logo.png'
+      // },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'
+      },
     ],
     script: [
       { src: '/js/coreui.bundle.min.js' },
@@ -86,7 +86,7 @@ export default {
         },
         user: {
           property: 'user',
-      // autoFetch: true
+          // autoFetch: true
         },
         endpoints: {
           login: {
@@ -120,7 +120,6 @@ export default {
     // baseURL: 'http://localhost:8000',
     baseURL: 'https://api.ppdb.smktibazma.sch.id',
     credentials: true,
-
   },
 
   build: {

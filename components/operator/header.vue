@@ -48,12 +48,8 @@
           <div class="dropdown-header bg-light py-2 rounded">
             <strong>QUICK MENU</strong>
           </div>
-          <a class="dropdown-item" role="button" @click="logout">
-            <svg class="c-icon mr-2">
-              <use
-                xlink:href="@/node_modules/@coreui/icons/sprites/free.svg#cil-account-logout"
-              ></use>
-            </svg>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" role="button">
             Pengaturan Aplikasi
           </a>
           <div class="dropdown-divider"></div>
